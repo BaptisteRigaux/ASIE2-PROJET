@@ -3,7 +3,12 @@ package td.ecommerce;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import td.ecommerce.model.*;
 import td.ecommerce.repository.*;
 
@@ -41,7 +46,7 @@ public class ECommerceApplication {
 
 
     //Bean de création pour tester le modèle
-    //@Bean
+    @Bean
     CommandLineRunner seeData(AdresseCustomers_Repository adresseCustomersRepository,
                               Customers_Repository customersRepository ,
                               Order_Repository orderRepository ,
@@ -65,9 +70,9 @@ public class ECommerceApplication {
             List<Article> articles = new ArrayList<>();
         
             //On créer des users
-            User user1 = new User("John", "Doe", "john@example.com", LocalDate.of(1990, 5, 15), true, new Date());
-            User user2 = new User("Bastien", "Moril", "Bastien@example.com", LocalDate.of(2023, 8, 22), false, new Date() );
-            User user3 = new User("Louis", "safran", "Louis@example.com", LocalDate.of(2023, 9, 30), false, new Date() );
+            User user1 = new User("John", "Doe", "john@example.com", LocalDate.of(1990, 5, 15), "male", new Date(), "pass123");
+            User user2 = new User("Bastien", "Moril", "Bastien@example.com", LocalDate.of(2023, 8, 22), "female", new Date(), "pass123" );
+            User user3 = new User("Louis", "safran", "Louis@example.com", LocalDate.of(2023, 9, 30),"female", new Date(), "pass123" );
             userRepository.save(user1);
             userRepository.save(user2);
             userRepository.save(user3);
@@ -153,7 +158,7 @@ public class ECommerceApplication {
         };
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner test(Article_Repository articleRepository){
         return args -> {
 
@@ -172,5 +177,21 @@ public class ECommerceApplication {
 
 
         };
+    }
+
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+
+        CorsFilter corsFilter = new CorsFilter(source);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(corsFilter);
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
     }
 }

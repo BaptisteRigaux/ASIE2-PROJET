@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponentComponent } from './login-page-component/login-page-component.component';
-import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
-import { RegistrerPageComponentComponent } from './registrer-page-component/registrer-page-component.component';
+import { LoginPageComponentComponent } from './component/login-page-component/login-page-component.component';
+import { HomePageComponentComponent } from './component/home-page-component/home-page-component.component';
+import { RegistrerPageComponentComponent } from './component/registrer-page-component/registrer-page-component.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
