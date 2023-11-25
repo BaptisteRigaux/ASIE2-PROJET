@@ -1,0 +1,33 @@
+  
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+          border-color: black; /* Change la couleur de la bordure en noir */
+    }
+
+
+    /* Ajoute un peu d'espace entre les boutons "Login In" et "Forgot Password" */
+    button[type="button"] {
+        margin-right: 8px; /* ou toute autre valeur de marge que tu souhaites */
+    }
+
+    /* Style pour les messages d'erreur */
+    .text-danger {
+        color: red;
+    }
+
+    /* Ajoute un peu d'espace entre les boutons et les messages d'erreur */
+    .small {
+        margin-top: 0.5rem; /* Ajoute de l'espace en haut */
+    }
