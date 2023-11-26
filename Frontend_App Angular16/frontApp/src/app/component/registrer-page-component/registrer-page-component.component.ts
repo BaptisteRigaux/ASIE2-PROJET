@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { passwordMatchValidator } from '../../password-match/password-match.directives';
 import { CreateUserServiceService } from 'src/app/service/create-user-service.service';
+import { LoginPageComponentComponent } from '../login-page-component/login-page-component.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registrer-page-component',
@@ -24,7 +26,13 @@ export class RegistrerPageComponentComponent {
     validators: passwordMatchValidator
   })
 
-  constructor(private router: Router, private fb: FormBuilder , private CreateUserServiceService: CreateUserServiceService) {}
+  constructor(private router: Router, private fb: FormBuilder , private CreateUserServiceService: CreateUserServiceService,private snackBar: MatSnackBar) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000, // Durée d'affichage du message en millisecondes
+    });
+  }
 
   redirectToLogin() {
     console.log('Redirecting to registration page');
@@ -44,16 +52,18 @@ export class RegistrerPageComponentComponent {
       this.CreateUserServiceService.addUser(userDataWithRegistrationDate).subscribe(
         (response) => {
           console.log('User added successfully:', response);
-          // Redirection vers une page de confirmation ou autre action
+          this.openSnackBar('Registration successful', 'Close');
+          this.router.navigate([LoginPageComponentComponent])
         },
         (error) => {
           console.error('Error adding user:', error);
-          // Gérer l'erreur appropriée (afficher un message à l'utilisateur, par exemple)
+          this.openSnackBar('Bad Registration', 'Close');
         }
       );
     } else {
       console.log('Invalid form. Please check the fields.');
       // Gérer le cas où le formulaire est invalide
+      this.openSnackBar('Bad Registration', 'Close');
     }
     console.log(this.RegistrerForm.value);
   }
