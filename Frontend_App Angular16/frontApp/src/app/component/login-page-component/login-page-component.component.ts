@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SericeAuthService } from 'src/app/service/serice-auth.service';
+import { NavBarComponentComponent } from '../nav-bar-component/nav-bar-component.component';
 
 @Component({
   selector: 'app-login-page-component',
@@ -36,21 +37,26 @@ export class LoginPageComponentComponent implements OnInit {
   }
 
   loginUser() {
-    const {email,password} = this.loginForm.value;
+    const { email } = this.loginForm.value;
+    const password = this.loginForm.get('password')?.value;
+
     console.log(email,password);
-    this.SericeAuthService.loginUser(email as string).subscribe(
-      response => {
-        if(response && response.password === password){
-          sessionStorage.setItem('email', email as string);
-          this.router.navigate(['/home']);
-        }else {
-          this.openSnackBar('Wrong Crédential', 'Close');
-        }
-      },
-      error => {
-        this.openSnackBar('Wrong Crédential', 'Close');
-      }
-    ) }
+
+    if (password !== null && password !== undefined) {
+        this.SericeAuthService.loginUser(email as string).subscribe(
+          response => {
+            if(response && response.password.toLowerCase() === password.toLowerCase()){
+              sessionStorage.setItem('email', email as string);
+              this.router.navigate(['/home']);
+            }else {
+              this.openSnackBar('Wrong Crédential 2', 'Close');
+            }
+          },
+          error => {
+            this.openSnackBar('Error while logging in', 'Close');
+          }
+        ) }
+   }
 
   // Définition des inputs à utilisé pour les conditions
   get email() { return this.loginForm.controls["email"];}

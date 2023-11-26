@@ -10,15 +10,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material/snack-bar'; // Importez le module MatSnackBarModule
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NavBarComponentComponent } from './component/nav-bar-component/nav-bar-component.component'; // Importez le module MatSnackBarModule
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponentComponent,
     HomePageComponentComponent,
-    RegistrerPageComponentComponent
+    RegistrerPageComponentComponent,
+    NavBarComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +36,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; // Importez le 
     ToastModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatToolbarModule, // Importez MatToolbarModule
+    MatMenuModule,    // Importez MatMenuModule
+    MatIconModule,    // Importez MatIconModule
+    MatButtonModule,  // Importez MatButtonModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NavBarComponentComponent } from '../nav-bar-component/nav-bar-component.component';
 
 @Component({
   selector: 'app-home-page-component',
@@ -12,7 +13,7 @@ export class HomePageComponentComponent implements OnInit{
 
   userData: any; // Variable pour stocker les données utilisateur
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient ) { }
 
   ngOnInit() {
     // Récupérer l'email utilisateur à partir du sessionStorage
