@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { UserOrdersComponentComponent } from './component/user-orders-component/user-orders-component.component';
+import { PersonalInfosComponentComponent } from './component/personal-infos-component/personal-infos-component.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { UserOrdersComponentComponent } from './component/user-orders-component/
     RegistrerPageComponentComponent,
     NavBarComponentComponent,
     UserOrdersComponentComponent,
+    PersonalInfosComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { UserOrdersComponentComponent } from './component/user-orders-component/
     MatMenuModule,    // Importez MatMenuModule
     MatIconModule,    // Importez MatIconModule
     MatButtonModule,  // Importez MatButtonModule
+    MatExpansionModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

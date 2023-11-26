@@ -4,6 +4,7 @@ import { LoginPageComponentComponent } from './component/login-page-component/lo
 import { RegistrerPageComponentComponent } from './component/registrer-page-component/registrer-page-component.component';
 import { HomePageComponentComponent } from './component/home-page-component/home-page-component.component';
 import { UserOrdersComponentComponent } from './component/user-orders-component/user-orders-component.component';
+import { PersonalInfosComponentComponent } from './component/personal-infos-component/personal-infos-component.component';
 
 const routes: Routes = [
   {
@@ -23,13 +24,9 @@ const routes: Routes = [
     component: UserOrdersComponentComponent
   },
   {
-    path: "",
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: "users/:userId/personalInfos", 
+    component: PersonalInfosComponentComponent 
   },
-  { path: '**', redirectTo: '/home' }, // Redirige toutes les routes inconnues vers le login
-  
-
 ];
 
 @NgModule({

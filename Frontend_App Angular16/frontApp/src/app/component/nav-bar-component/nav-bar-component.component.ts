@@ -68,4 +68,15 @@ export class NavBarComponentComponent implements OnInit {
       console.error('Impossible de récupérer l\'ID de l\'utilisateur.');
     }
   } 
+
+  redirectToPersonalInfo(): void {
+    const userId = this.userData?.user_id;
+    console.log(userId); // Assurez-vous que userId est correct
+    if (userId) {
+      this.router.navigateByUrl(`/users/${userId}/personalInfos`);
+      console.log("Redirection vers la page des informations personnelles");
+    } else {
+      console.error('Impossible de récupérer l\'ID de l\'utilisateur.');
+    }
+  } 
 }

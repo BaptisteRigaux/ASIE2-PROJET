@@ -13,15 +13,17 @@
           <mat-icon>people_outline</mat-icon>
           <span>Connecting</span>
         </button>
-        <button mat-menu-item>
-          <mat-icon>videocam</mat-icon>
-          <span>Let's talk</span>
-        </button>
-
+        
         <!-- Bouton pour les commandes -->
         <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToOrders()">
           <mat-icon>assignment</mat-icon>
           <span>Commandes</span>
+        </button>
+
+        <!-- Lien pour les informations personnelles -->
+        <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToPersonalInfo()">
+          <mat-icon>person</mat-icon>
+          <span>Personal Information</span>
         </button>
 
         <!-- Utilisez *ngIf pour afficher le bouton de déconnexion (Logout) si l'utilisateur est connecté -->
