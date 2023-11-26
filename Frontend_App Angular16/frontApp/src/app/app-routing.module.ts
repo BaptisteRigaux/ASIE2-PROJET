@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponentComponent } from './component/login-page-component/login-page-component.component';
 import { RegistrerPageComponentComponent } from './component/registrer-page-component/registrer-page-component.component';
 import { HomePageComponentComponent } from './component/home-page-component/home-page-component.component';
+import { UserOrdersComponentComponent } from './component/user-orders-component/user-orders-component.component';
 
 const routes: Routes = [
   {
@@ -18,11 +19,16 @@ const routes: Routes = [
     component: HomePageComponentComponent
   },
   {
+    path: "users/:userId/orders", 
+    component: UserOrdersComponentComponent
+  },
+  {
     path: "",
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
-  { path: '**', redirectTo: '/login' }, // Redirige toutes les routes inconnues vers le login
+  { path: '**', redirectTo: '/home' }, // Redirige toutes les routes inconnues vers le login
+  
 
 ];
 

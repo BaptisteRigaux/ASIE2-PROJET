@@ -17,7 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { UserOrdersComponentComponent } from './component/user-orders-component/user-orders-component.component';
 
 
 @NgModule({
@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
     HomePageComponentComponent,
     RegistrerPageComponentComponent,
     NavBarComponentComponent,
+    UserOrdersComponentComponent,
   ],
   imports: [
     BrowserModule,

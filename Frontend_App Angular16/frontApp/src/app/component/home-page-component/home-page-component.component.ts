@@ -10,7 +10,6 @@ import { NavBarComponentComponent } from '../nav-bar-component/nav-bar-component
 export class HomePageComponentComponent implements OnInit{
   
   userEmail: string | null = null; // Variable pour stocker l'email de l'utilisateur
-
   userData: any; // Variable pour stocker les données utilisateur
   
   constructor(private http: HttpClient ) { }

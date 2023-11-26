@@ -4,25 +4,41 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
-    <span (mouseleave)="menuTrigger.closeMenu()">
-      <button mat-menu-item>
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-  </button>
-  <button mat-menu-item>
-        <mat-icon>people_outline</mat-icon>
-        <span>Connecting</span>
-      </button>
-  <button mat-menu-item>
-        <mat-icon>videocam</mat-icon>
-        <span>Let's talk</span>
-      </button>
-  <button mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-  </span>
-  </mat-menu>
+      <span (mouseleave)="menuTrigger.closeMenu()">
+        <button mat-menu-item (click)="home()">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>people_outline</mat-icon>
+          <span>Connecting</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>videocam</mat-icon>
+          <span>Let's talk</span>
+        </button>
+
+        <!-- Bouton pour les commandes -->
+        <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToOrders()">
+          <mat-icon>assignment</mat-icon>
+          <span>Commandes</span>
+        </button>
+
+        <!-- Utilisez *ngIf pour afficher le bouton de déconnexion (Logout) si l'utilisateur est connecté -->
+        <button mat-menu-item *ngIf="isLoggedIn()" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+        <!-- Utilisez *ngIf pour afficher le bouton de connexion (Login) si l'utilisateur n'est pas connecté -->
+        <button mat-menu-item *ngIf="!isLoggedIn()" (click)="redirectToLogin()">
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+        </button>
+
+        
+
+      </span>
+    </mat-menu>
   </span>
   <span class="fill-remaining-space">Application Title</span>
 </mat-toolbar>
