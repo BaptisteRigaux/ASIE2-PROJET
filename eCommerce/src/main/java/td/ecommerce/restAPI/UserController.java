@@ -43,6 +43,16 @@ public class UserController {
         return new ResponseEntity<List<User>>(listeUsers,HttpStatus.CREATED);
     }
 
+    @GetMapping("/user/email={email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+    User user = userService.getUserByEmail(email);
+    if (user != null) {
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
     {

@@ -13,7 +13,7 @@
                       <h4 class="mt-1 mb-5 pb-1">Don Barrera Website teams</h4>
                   </div>
   
-                  <form [formGroup]="loginForm">
+                  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
                     <p>Please login to your account</p>
                     
                     <!-- Email HTML -->
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="text-center pt-1 mb-5 pb-1">
-                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button" [disabled]="loginForm.invalid">Log
+                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" [disabled]="loginForm.invalid">Log
                         in</button>
                       <a class="text-muted" href="#!">Forgot password?</a>
                     </div> 
