@@ -36,6 +36,10 @@ public class UserController {
         this.panierService = panierService ;
     }
 
+    //Api permetttant de recupup les user 
+    //Le login
+    //Put les informations d'edition d'un utilisateur
+
     @GetMapping("/allusers")
     public ResponseEntity<List<User>> getAllUsers()
     {
@@ -49,9 +53,19 @@ public class UserController {
     if (user != null) {
         return new ResponseEntity<>(user, HttpStatus.OK);
     } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);}
     }
-}
+
+    @PostMapping("/user/{userId}/change")
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User user){
+
+        if (!userId.equals(user.getUser_id())) {
+            // Si l'ID dans l'URL ne correspond pas à celui de l'utilisateur dans le corps de la requête
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User usertochange = userService.updateUser(user);
+        return new ResponseEntity<>(usertochange, HttpStatus.OK);
+    }
 
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
@@ -106,11 +120,6 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody User user){
         User usertoadd = userService.persistUser(user);
         return new ResponseEntity<User>(usertoadd,HttpStatus.CREATED);
-    }
-    @PutMapping("/user/change")
-    public ResponseEntity<User> updateUser(@RequestBody User user){
-        User usertochange = userService.updateUser(user);
-        return new ResponseEntity<User>(usertochange,HttpStatus.OK);
     }
 
     @DeleteMapping("/user/delete/{id}")

@@ -36,7 +36,7 @@ public class User {
     private LocalDate dateOfBirth;
 
     @Column(name = "gender")
-    private String gender; // true for male, false for female
+    private String gender; // string for male or female
 
     @Column(name = "password")
     private String password; 
@@ -132,7 +132,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String isGender() {
+    public String getGender() {
         return gender;
     }
 

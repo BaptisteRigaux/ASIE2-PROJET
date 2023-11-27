@@ -14,4 +14,9 @@ export class SericeAuthService {
   loginUser(email: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user/email=${email}`);
   }
+
+  updateUserData(userData: any): Observable<any> {
+    const userId = userData.user_id; // Assurez-vous que userData contient l'ID de l'utilisateur
+    return this.http.post<any>(`${this.apiUrl}/user/${userId}/change`, userData);
+  }
 }
