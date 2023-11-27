@@ -1,51 +1,56 @@
 <app-nav-bar-component></app-nav-bar-component>
 
-<h1 >This is your orders</h1>
+<div class="container">
+  <h1>Change your informations </h1>
 
-<div>
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="userForm" class="form">
+      <div class="input-group">
+        <mat-form-field class="input-field">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="Firstname" placeholder="First Name">
+        </mat-form-field>
 
-  <form (ngSubmit)="onSubmit()" [formGroup]="userForm">
-    <mat-form-field appearance="fill">
-      <mat-label>First Name</mat-label>
-      <input matInput formControlName="Firstname" placeholder="First Name">
-    </mat-form-field>
+        <mat-form-field class="input-field">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="Lastname" placeholder="Last Name">
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Last Name</mat-label>
-      <input matInput formControlName="Lastname" placeholder="Last Name">
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" placeholder="Enter your email">
-    </mat-form-field>
+        <mat-form-field class="input-field">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter your email">
+        </mat-form-field>
+      </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Gender</mat-label>
-      <mat-select formControlName="gender">
-        <mat-option value="male">Male</mat-option>
-        <mat-option value="female">Female</mat-option>
-      </mat-select>
-      <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
-    </mat-form-field>
+      <div class="input-group">
+        <mat-form-field class="input-field">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+          </mat-select>
+          <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+        </mat-form-field>
 
-    
-    <mat-form-field appearance="fill">
-      <mat-label>Date of Birth</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" placeholder="Enter your date of birth">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Enter your password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter your password">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-    </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit">Save Changes</button>
-  </form>
-  
+        <mat-form-field class="input-field">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" placeholder="Enter your date of birth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="input-group">
+        <mat-form-field class="input-field">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter your password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Save Changes</button>
+    </form>
+  </div>
 </div>
