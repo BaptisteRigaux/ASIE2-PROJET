@@ -7,12 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class OrderServiceService {
 
-  private apiUrl = 'http://localhost:8080/users';
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
   getOrdersByCustomerId(customerId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${customerId}/orders`);
+    return this.http.get<any>(`${this.apiUrl}/users/${customerId}/orders`);
+  }
+
+  getAllArticles():Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/allArticles`)
   }
 
 }

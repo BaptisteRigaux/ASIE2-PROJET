@@ -31,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { AddressDetailsComponent } from './component/address-details/address-details.component';
+import { OrdersCardsComponent } from './component/orders-cards/orders-cards.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AddressDetailsComponent } from './component/address-details/address-det
     UserOrdersComponentComponent,
     PersonalInfosComponentComponent,
     AddressDetailsComponent,
+    OrdersCardsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,31 @@
+<div class="row ">
+    <div class=" col-lg-2 " *ngFor="let article of articles">
+      <mat-card class="cardWithShadow productcard overflow-hidden additionalPadding card">
+        <a routerLink="/widgets/cards">
+          <img
+            src="https://i.imgur.com/XfotrJl.png"
+            alt="imgSrc"
+            class="w-100"
+            mat-card-image
+          />
+        </a>
+        <mat-card-content class="p-b-24 p-t-12 position-relative">
+          <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{ article.name_article }}</mat-card-title>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <h6 class="mat-body-2 f-w-600">{{ article.price }} €</h6>
+              <span class="f-s-14 m-l-4 text-decoration-line-through">1000€</span>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <button
+            mat-mini-fab
+            color="primary"
+            class="icon-30 cart-btn emplacementIcon"
+            matTooltip="Add to Cart">
+            <mat-icon>shopping_basket</mat-icon>
+          </button>
+      </mat-card>
+    </div>
+  </div>
