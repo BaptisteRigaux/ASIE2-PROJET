@@ -67,12 +67,21 @@ public class UserController {
         return new ResponseEntity<>(usertochange, HttpStatus.OK);
     }
 
+    @GetMapping("/users/{customerId}/orders")
+    public ResponseEntity<List<Order>> getOrdersByCustomers(@PathVariable Long customerId) {
+        List<Order> orders = orderService.getOrdersByCustomerId(customerId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+    
+
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
     {
         List<Customers> listeCustomers = customerService.getAllCustomers();
         return new ResponseEntity<List<Customers>>(listeCustomers,HttpStatus.CREATED);
     }
+
+
 
     @GetMapping("/allseller")
     public ResponseEntity<List<Seller>> getAllSeller()

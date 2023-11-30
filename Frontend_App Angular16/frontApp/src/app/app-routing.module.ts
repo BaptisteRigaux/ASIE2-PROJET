@@ -20,7 +20,7 @@ const routes: Routes = [
     component: HomePageComponentComponent
   },
   {
-    path: "users/:userId/orders", 
+    path: "users/:customerId/orders", 
     component: UserOrdersComponentComponent
   },
   {

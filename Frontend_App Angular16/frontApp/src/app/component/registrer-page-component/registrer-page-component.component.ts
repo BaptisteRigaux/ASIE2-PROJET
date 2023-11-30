@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { passwordMatchValidator } from '../../password-match/password-match.directives';
+import { passwordMatchValidator } from '../../directives/password-match.directives';
 import { CreateUserServiceService } from 'src/app/service/create-user-service.service';
 import { LoginPageComponentComponent } from '../login-page-component/login-page-component.component';
 import { MatSnackBar } from '@angular/material/snack-bar';

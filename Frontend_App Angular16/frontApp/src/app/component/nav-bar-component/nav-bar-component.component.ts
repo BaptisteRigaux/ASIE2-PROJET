@@ -22,6 +22,7 @@ export class NavBarComponentComponent implements OnInit {
       this.http.get(`http://localhost:8080/user/email=${this.userEmail}`).subscribe(
         (data: any) => {
           this.userData = data;
+          console.log(this.userData)
         },
         (error) => {
           console.error('Erreur lors de la récupération des données utilisateur : ', error);
@@ -59,10 +60,10 @@ export class NavBarComponentComponent implements OnInit {
   }
 
   redirectToOrders(): void {
-    const userId = this.userData?.user_id;
-    console.log(userId); // Assurez-vous que userId est correct
-    if (userId) {
-      this.router.navigateByUrl(`/users/${userId}/orders`);
+    const customer_id = this.userData.customers?.customer_id;
+    console.log(customer_id); // Assurez-vous que userId est correct
+    if (customer_id) {
+      this.router.navigateByUrl(`/users/${customer_id}/orders`);
       console.log("Redirection vers la page des commandes");
     } else {
       console.error('Impossible de récupérer l\'ID de l\'utilisateur.');

@@ -5,7 +5,7 @@ import { NavBarComponentComponent } from '../nav-bar-component/nav-bar-component
 @Component({
   selector: 'app-home-page-component',
   templateUrl: './home-page-component.component.html',
-  styleUrls: ['./home-page-component.component.css']
+  styleUrls: ['./home-page-component.component.css'],
 })
 export class HomePageComponentComponent implements OnInit{
   

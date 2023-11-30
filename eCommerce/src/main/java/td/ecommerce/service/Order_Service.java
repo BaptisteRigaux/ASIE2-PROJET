@@ -1,5 +1,6 @@
 package td.ecommerce.service;
 
+import td.ecommerce.model.Customers;
 import td.ecommerce.model.Order;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface Order_Service {
     public Order updateOrder(Order order);
 
     public void deleteOrder(Long id);
+
+    public List<Order> getOrdersByCustomerId(Long customerId);
 }
