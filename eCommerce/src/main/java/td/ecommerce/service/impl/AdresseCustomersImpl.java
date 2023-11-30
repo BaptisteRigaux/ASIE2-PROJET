@@ -41,4 +41,10 @@ public class AdresseCustomersImpl implements AdresseCustomers_Service {
     public void deleteAddress(Long id) {
         adresseCustomersRepository.deleteById(id);
     }
+    
+    @Override
+    public List<AdresseCustomers> getAddressesByCustomersId(Long customerId) {
+        
+         return adresseCustomersRepository.findByCustomersCustomerId(customerId);
+    }
 }

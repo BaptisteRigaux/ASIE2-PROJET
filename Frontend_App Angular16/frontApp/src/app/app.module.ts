@@ -30,6 +30,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { AddressDetailsComponent } from './component/address-details/address-details.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatTableModule } from '@angular/material/table';
     NavBarComponentComponent,
     UserOrdersComponentComponent,
     PersonalInfosComponentComponent,
+    AddressDetailsComponent,
   ],
   imports: [
     BrowserModule,

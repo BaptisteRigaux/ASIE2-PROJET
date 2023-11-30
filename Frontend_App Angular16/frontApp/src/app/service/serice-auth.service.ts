@@ -19,4 +19,8 @@ export class SericeAuthService {
     const userId = userData.user_id; // Assurez-vous que userData contient l'ID de l'utilisateur
     return this.http.post<any>(`${this.apiUrl}/user/${userId}/change`, userData);
   }
+
+  getAddressesByCustomerId(customerId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/customers/${customerId}/adress`);
+  }
 }

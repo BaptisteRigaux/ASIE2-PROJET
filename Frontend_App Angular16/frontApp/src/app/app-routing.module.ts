@@ -24,7 +24,7 @@ const routes: Routes = [
     component: UserOrdersComponentComponent
   },
   {
-    path: "users/:userId/personalInfos", 
+    path: "users/:userId/personalInfos/:customerId", 
     component: PersonalInfosComponentComponent 
   },
 ];

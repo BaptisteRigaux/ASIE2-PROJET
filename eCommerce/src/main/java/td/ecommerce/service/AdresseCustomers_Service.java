@@ -9,4 +9,6 @@ public interface AdresseCustomers_Service {
     public AdresseCustomers getAddressById(Long id);
     public AdresseCustomers updateAddress(AdresseCustomers address);
     public void deleteAddress(Long id);
+
+    public List<AdresseCustomers>getAddressesByCustomersId(Long customerId);
 }

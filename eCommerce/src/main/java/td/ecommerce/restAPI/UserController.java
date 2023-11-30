@@ -72,6 +72,15 @@ public class UserController {
         List<Order> orders = orderService.getOrdersByCustomerId(customerId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
+    @GetMapping("/customers/{customerId}/adress")
+    public ResponseEntity<List<AdresseCustomers>> getAdressByCustomers(@PathVariable Long customerId)
+    {
+        List<AdresseCustomers> listAdresseCustomers = adresseCustomersService.getAddressesByCustomersId(customerId);
+        return new ResponseEntity<>(listAdresseCustomers,HttpStatus.CREATED);
+    }
+
+
     
 
     @GetMapping("/allcustomers")

@@ -1,6 +1,5 @@
 package td.ecommerce.service;
 
-import td.ecommerce.model.Customers;
 import td.ecommerce.model.Order;
 
 import java.util.List;
