@@ -10,7 +10,6 @@ import td.ecommerce.model.AdresseCustomers;
 
 public interface AdresseCustomers_Repository extends JpaRepository<AdresseCustomers, Long>{
 
-    
     @Query("SELECT o FROM AdresseCustomers o WHERE o.customers.customer_id = :customerId")
-    List<AdresseCustomers> findByCustomersCustomerId(@Param("customerId")Long customerId);    
+    List<AdresseCustomers> findByCustomersCustomerId(@Param("customerId")Long customerId); 
 }

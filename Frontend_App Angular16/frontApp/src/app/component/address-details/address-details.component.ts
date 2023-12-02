@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SericeAuthService } from 'src/app/service/serice-auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-address-details',
@@ -11,7 +12,7 @@ export class AddressDetailsComponent implements OnInit{
   customerId: string | null = null;
   addresses: any[] = [];
 
-  constructor(private route: ActivatedRoute, private sericeAuth: SericeAuthService) { }
+  constructor(private route: ActivatedRoute, private sericeAuth: SericeAuthService , private snackBar: MatSnackBar ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -29,9 +30,27 @@ export class AddressDetailsComponent implements OnInit{
       });
   }
 
-  //action sur le click supprimer des adress
   onDeleteIconClick(address: any): void {
-    console.log('Test suppression', address);
-    // Ajoutez ici la logique pour supprimer l'adresse (par exemple, en utilisant un service)
+    const confirmation = confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?');
+
+    if (confirmation) {
+
+      console.log('Test suppression', address);
+      this.sericeAuth.deleteAddressById(address.adress_id)
+        .subscribe(
+          (response) => {
+            console.log('Suppression OK', response);
+            window.location.reload();
+            this.snackBar.open('Adresse supprimée avec succès.', 'Fermer', {
+              duration: 5000 // Affiche un message de confirmation pendant 2 secondes
+            });
+            // Ajoutez ici d'autres actions à effectuer après la suppression réussie
+          },
+          (error) => {
+            console.error('Erreur lors de la suppression de l\'adresse', error);
+            // Gérez ici les erreurs lors de la suppression
+          }
+        );
+      }
   }
 }

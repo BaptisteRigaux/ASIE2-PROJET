@@ -23,4 +23,8 @@ export class SericeAuthService {
   getAddressesByCustomerId(customerId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/customers/${customerId}/adress`);
   }
+
+  deleteAddressById(adress_id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${adress_id}`, { responseType: 'text' });
+  }
 }

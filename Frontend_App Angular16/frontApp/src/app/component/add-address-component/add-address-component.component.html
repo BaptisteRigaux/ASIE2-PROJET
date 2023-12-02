@@ -1,0 +1,32 @@
+<div>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="center-form">
+        <h1 mat-dialog-title>Add Address</h1>
+        <div class="input-field center-input">
+            <mat-form-field class="input-field">
+                <input matInput formControlName="street" placeholder="Street" required >
+            </mat-form-field>
+        
+            <mat-form-field class="input-field">
+                <input matInput formControlName="postal_code" placeholder="Postal Code" required>
+            </mat-form-field>
+        
+            <mat-form-field class="input-field">
+                <input matInput formControlName="city" placeholder="City" required>
+            </mat-form-field>
+        
+            <mat-form-field class="input-field">
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="country" required>
+                <!-- Liste des pays -->
+                <mat-option *ngFor="let country of countries" [value]="country.value">
+                    {{ country.viewValue }}
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="modal-footer">
+            <button mat-button color="primary" type="submit">Add</button>
+            <button mat-button (click)="dialogRef.close()">No Thanks</button>
+        </div>
+    </form>
+</div>

@@ -2,6 +2,9 @@ import {Component , OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SericeAuthService } from 'src/app/service/serice-auth.service';
+import { AddAddressComponentComponent } from '../add-address-component/add-address-component.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -16,8 +19,10 @@ export class PersonalInfosComponentComponent implements OnInit{
   userEmail: string | null = null; // Variable pour stocker l'email de l'utilisateur
   userForm!: FormGroup;
   userData: any; // Les données de l'utilisateur
-
-  constructor(private formBuilder: FormBuilder,private SericeAuthService: SericeAuthService ) {}
+  customerId!: string; // Variable pour stocker customerId
+  dialogRef!: MatDialogRef<AddAddressComponentComponent>;
+  
+  constructor(private formBuilder: FormBuilder,private SericeAuthService: SericeAuthService ,private dialog: MatDialog , private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
@@ -52,6 +57,13 @@ export class PersonalInfosComponentComponent implements OnInit{
       (error) => {
         console.error('Erreur lors de la récupération des données utilisateur : ', error);
       });
+
+      //Récupérer le customerId depuis la route
+      this.route.params.subscribe((params) => {
+        this.customerId = params['customerId']; // Obtenez le customerId de l'URL
+        console.log(this.customerId);
+      });
+
     }
 
 
@@ -78,5 +90,22 @@ export class PersonalInfosComponentComponent implements OnInit{
   } else {
     console.error('Veuillez remplir correctement tous les champs du formulaire.');
   }
+  }
+
+  openAddAddressModal(): void {
+    this.dialogRef = this.dialog.open(AddAddressComponentComponent, {
+      width: '400px', // Largeur du modal (ajustez selon vos besoins)
+      data: { customerId: this.customerId} // Passer le customerId au dialogue
+    });
+
+  
+    // Souscrire à l'événement d'ajout d'adresse réussi depuis AddAddressComponentComponent
+    this.dialogRef.componentInstance.addAddressSuccess.subscribe((result: string) => {
+      if (result === 'success') {
+        console.log('Dialogue fermé suite à un ajout d\'adresse réussi.');
+        this.dialogRef.close(); // Fermer le dialogue ici
+        window.location.reload(); // Rafraîchir la page
+      }
+    });
   }
 }

@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.persistence.EntityNotFoundException;
 import td.ecommerce.model.*;
+import td.ecommerce.repository.AdresseCustomers_Repository;
+import td.ecommerce.repository.Customers_Repository;
 import td.ecommerce.service.*;
 
 import java.util.*;
@@ -22,10 +26,13 @@ public class UserController {
     private AdresseCustomers_Service adresseCustomersService;
     private Panier_Service panierService;
 
+    private final AdresseCustomers_Repository addressRepository;
+    private final Customers_Repository customersRepository;
+
 
     @Autowired UserController(User_Service userService, Customers_Service customerService , Seller_Service sellerService ,
                               Article_Service articleService ,ArticlePriceHistory_Service articlePriceHistoryService ,Order_Service orderService ,
-                              AdresseCustomers_Service adresseCustomersService , Panier_Service panierService){
+                              AdresseCustomers_Service adresseCustomersService , Panier_Service panierService ,AdresseCustomers_Repository addressRepository ,Customers_Repository customersRepository ){
         this.userService =userService;
         this.customerService = customerService;
         this.sellerService = sellerService;
@@ -34,6 +41,8 @@ public class UserController {
         this.orderService = orderService;
         this.adresseCustomersService = adresseCustomersService;
         this.panierService = panierService ;
+        this.addressRepository =addressRepository;
+        this.customersRepository=customersRepository;
     }
 
     //Api permetttant de recupup les user 
@@ -56,6 +65,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);}
     }
 
+    //Route pour changer les informations personnel d'un utilisateur
     @PostMapping("/user/{userId}/change")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User user){
 
@@ -67,12 +77,15 @@ public class UserController {
         return new ResponseEntity<>(usertochange, HttpStatus.OK);
     }
 
+    //Route pour avoir les orders d'un customer par customer_id
     @GetMapping("/users/{customerId}/orders")
     public ResponseEntity<List<Order>> getOrdersByCustomers(@PathVariable Long customerId) {
         List<Order> orders = orderService.getOrdersByCustomerId(customerId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
+
+    //Route pour avoir les adresse d'un customer par customer_id
     @GetMapping("/customers/{customerId}/adress")
     public ResponseEntity<List<AdresseCustomers>> getAdressByCustomers(@PathVariable Long customerId)
     {
@@ -80,9 +93,33 @@ public class UserController {
         return new ResponseEntity<>(listAdresseCustomers,HttpStatus.CREATED);
     }
 
+    //route pour ajouter une adresse sur un CustomerID
+    @PostMapping("/addAdress/{customerId}")
+    public ResponseEntity<String> addAddressToCustomer(@PathVariable Long customerId, @RequestBody AdresseCustomers address) {
+        Optional<Customers> optionalCustomer = customersRepository.findById(customerId);
+        
+        if (optionalCustomer.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        Customers customer = optionalCustomer.get();
+        address.setCustomers(customer);
+        addressRepository.save(address);
+        
+        return ResponseEntity.ok("Address added successfully for customer with ID: " + customerId);
+    }
 
+    //route pour delete des adresse par leur addressId
+    @DeleteMapping("/delete/{addressId}")
+    public ResponseEntity<String> deleteAddressById(@PathVariable Long addressId) {
+        try {
+        adresseCustomersService.deleteAddressById(addressId);
+        return new ResponseEntity<>("Suppression OK", HttpStatus.OK);
+        } catch (EntityNotFoundException  e) {
+        return new ResponseEntity<>("L'adresse n'a pas pu être trouvée pour la suppression", HttpStatus.NOT_FOUND);
+        }
+    }
     
-
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
     {

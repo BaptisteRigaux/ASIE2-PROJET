@@ -32,6 +32,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { AddressDetailsComponent } from './component/address-details/address-details.component';
 import { OrdersCardsComponent } from './component/orders-cards/orders-cards.component';
+import { AddAddressComponentComponent } from './component/add-address-component/add-address-component.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { OrdersCardsComponent } from './component/orders-cards/orders-cards.comp
     PersonalInfosComponentComponent,
     AddressDetailsComponent,
     OrdersCardsComponent,
+    AddAddressComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { OrdersCardsComponent } from './component/orders-cards/orders-cards.comp
     MatRadioModule,
     MatSelectModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
   ],
 
   providers: [MessageService],
