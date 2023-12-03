@@ -9,11 +9,7 @@
           <mat-icon>home</mat-icon>
           <span>Home</span>
         </button>
-        <button mat-menu-item>
-          <mat-icon>people_outline</mat-icon>
-          <span>Connecting</span>
-        </button>
-        
+                
         <!-- Bouton pour les commandes -->
         <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToOrders()">
           <mat-icon>assignment</mat-icon>
@@ -34,7 +30,7 @@
 
         <!-- Utilisez *ngIf pour afficher le bouton de connexion (Login) si l'utilisateur n'est pas connecté -->
         <button mat-menu-item *ngIf="isLoggedIn() && isSellerLogin()" (click)="redirectToManageArticle()">
-          <mat-icon>add_circle_outline</mat-icon>
+          <mat-icon> attach_money</mat-icon>
           <span>Manage Article</span>
         </button>
 

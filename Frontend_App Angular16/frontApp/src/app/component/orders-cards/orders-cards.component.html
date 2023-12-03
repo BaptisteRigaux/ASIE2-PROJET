@@ -11,13 +11,20 @@
         </a>
         <mat-card-content class="p-b-24 p-t-12 position-relative">
             <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{ article.name_article }}</mat-card-title>
+            <mat-card-content class="p-b-24 p-t-12 position-relative">
 
+                <!-- Section Catégory -->
+                <div class="description" matTooltip="{{ article['catégory'] }}" matTooltipClass="description-tooltip">
+                    Catégory : {{ article['catégory'] | slice:0:40 }} <!-- Limiter à 40 caractères -->
+                </div>
+            </mat-card-content>
+            <br>
             <!-- Section Description -->
             <div class="description" matTooltip="{{ article.description }}" matTooltipClass="description-tooltip">
                 {{ article.description | slice:0:40 }} <!-- Limiter à 40 caractères -->
             </div>
         </mat-card-content>
-
+        <br>
         <mat-card-content class="p-b-24 p-t-12 position-relative">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">

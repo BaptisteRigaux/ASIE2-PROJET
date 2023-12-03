@@ -133,7 +133,7 @@ public class UserController {
 
     //route pour ajouter un article en étant déjà un seller
     @PostMapping("/addArticle/{sellerId}")
-    public ResponseEntity<String> addArticleToSeller(@PathVariable Long sellerId, @RequestBody Article article) {
+    public ResponseEntity<Object> addArticleToSeller(@PathVariable Long sellerId, @RequestBody Article article) {
         Optional<Seller> optionalSeller = sellerRepository.findById(sellerId);
         System.err.println(optionalSeller);
         
@@ -145,7 +145,11 @@ public class UserController {
         article.setSeller(seller);
         articleRepository.save(article);
         
-        return ResponseEntity.ok("Article added successfully for Seller with ID: " + sellerId);
+        // Créez un objet JSON pour renvoyer une réponse plus structurée
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Article added successfully for Seller with ID: " + sellerId);
+        
+        return ResponseEntity.ok(response);
     }
 
     //route pour créer un seller 

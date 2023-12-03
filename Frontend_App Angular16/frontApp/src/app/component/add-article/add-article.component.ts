@@ -5,6 +5,7 @@ import { ActivatedRoute , Router  } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SellerCreationModalComponent } from 'src/app/component/seller-creation-modal/seller-creation-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-article',
@@ -16,10 +17,10 @@ export class AddArticleComponent {
   sellForm: FormGroup;
   sellerId: number | null = null; // Assuming the seller ID is passed in the URL
   userId!: number | null ;
-  snackBar: any;
+  successMessage: string = '';
 
   constructor(private fb: FormBuilder, private authService: SericeAuthService ,private http: HttpClient,
-    private route: ActivatedRoute ,  private dialog: MatDialog , private router: Router) {
+    private route: ActivatedRoute ,  private dialog: MatDialog , private router: Router ,  private snackBar: MatSnackBar) {
     this.sellForm = this.fb.group({
       catégory: ['', Validators.required],
       name_article: ['', Validators.required],
@@ -63,6 +64,7 @@ export class AddArticleComponent {
         .subscribe(
           response => {
             console.log('Article added successfully:', response);
+            this.showSuccessMessage();
             // Reset the form after successful submission if needed
             this.sellForm.reset();
           },
@@ -75,6 +77,12 @@ export class AddArticleComponent {
     else if (this.sellerId === null){
         this.openSellerCreationModal();
     }
+  }
+
+  showSuccessMessage(): void {
+    this.snackBar.open('Vous avez bien créé un article à vendre.', 'Fermer', {
+      duration:  1000, // Durée d'affichage de l'alerte en millisecondes
+    });
   }
 
 
