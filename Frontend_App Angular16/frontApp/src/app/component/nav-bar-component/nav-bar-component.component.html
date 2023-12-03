@@ -32,6 +32,12 @@
           <span>Sell Something</span>
         </button>
 
+        <!-- Utilisez *ngIf pour afficher le bouton de connexion (Login) si l'utilisateur n'est pas connecté -->
+        <button mat-menu-item *ngIf="isLoggedIn() && isSellerLogin()" (click)="redirectToManageArticle()">
+          <mat-icon>add_circle_outline</mat-icon>
+          <span>Manage Article</span>
+        </button>
+
         <!-- Utilisez *ngIf pour afficher le bouton de déconnexion (Logout) si l'utilisateur est connecté -->
         <button mat-menu-item *ngIf="isLoggedIn()" (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>

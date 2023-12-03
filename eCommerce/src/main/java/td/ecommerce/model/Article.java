@@ -149,4 +149,12 @@ public class Article {
        
     }
 
+    @PreRemove
+    private void preRemove() {
+        if (seller != null) {
+            seller.getArticles().remove(this); // Détacher l'adresse du client
+            seller = null; // Nullifier la référence du client pour cette adresse
+        }
+    }
+
 }

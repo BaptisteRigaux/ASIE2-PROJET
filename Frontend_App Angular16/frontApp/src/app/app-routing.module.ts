@@ -7,6 +7,7 @@ import { UserOrdersComponentComponent } from './component/user-orders-component/
 import { PersonalInfosComponentComponent } from './component/personal-infos-component/personal-infos-component.component';
 import { AddAddressComponentComponent } from './component/add-address-component/add-address-component.component';
 import { AddArticleComponent } from './component/add-article/add-article.component';
+import { ManageSellerComponent } from './component/manage-seller/manage-seller.component';
 
 const routes: Routes = [
   {
@@ -30,9 +31,13 @@ const routes: Routes = [
     component: PersonalInfosComponentComponent , 
   },
   {
+    path: "manageSeller/:sellerId", 
+    component: ManageSellerComponent,
+  },
+  {
     path: "AddArticle/:userId/:sellerId", 
     component: AddArticleComponent , 
-  },
+  }
 ];
 
 @NgModule({

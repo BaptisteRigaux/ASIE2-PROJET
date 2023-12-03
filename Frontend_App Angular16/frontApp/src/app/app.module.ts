@@ -36,6 +36,9 @@ import { AddAddressComponentComponent } from './component/add-address-component/
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddArticleComponent } from './component/add-article/add-article.component';
 import { SellerCreationModalComponent } from './component/seller-creation-modal/seller-creation-modal.component';
+import { ManageSellerComponent } from './component/manage-seller/manage-seller.component';
+import { EditArticleDialogComponent } from './component/edit-article-dialog/edit-article-dialog.component';
+import { FormsModule } from '@angular/forms'; // Importez FormsModule
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { SellerCreationModalComponent } from './component/seller-creation-modal/
     AddAddressComponentComponent,
     AddArticleComponent,
     SellerCreationModalComponent,
+    ManageSellerComponent,
+    EditArticleDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +79,7 @@ import { SellerCreationModalComponent } from './component/seller-creation-modal/
     MatCardModule,
     MatTableModule,
     MatDialogModule,
+    FormsModule,
   ],
 
   providers: [MessageService],

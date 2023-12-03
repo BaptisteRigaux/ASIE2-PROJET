@@ -164,9 +164,51 @@ public class UserController {
         return ResponseEntity.ok(savedSeller);
     }
 
+    //Route pour avoir les Articles d'un sellerId
+    @GetMapping("/seller/{sellerId}/articles")
+    public ResponseEntity<List<Article>> getArticlesBySellers(@PathVariable Long sellerId)
+    {
+        List<Article> listArticleSeller = articleService.getArticlesBySeller(sellerId);
+        return new ResponseEntity<>(listArticleSeller,HttpStatus.CREATED);
+    }
+
+    //Route pour update un Article
+    @PutMapping("/api/updateArticle/{articleId}")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long articleId,@RequestBody Article updatedArticle)
+    {
+        
+        Optional<Article> optionalArticle = articleRepository.findById(articleId);
+
+        if (optionalArticle.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Article existingArticle = optionalArticle.get();
+
+        existingArticle.setName_article(updatedArticle.getName_article());
+        existingArticle.setDescription(updatedArticle.getDescription());
+        existingArticle.setPrice(updatedArticle.getPrice());
+        existingArticle.setStock(updatedArticle.getStock());
+        existingArticle.setCatégory(updatedArticle.getCatégory());
+
+        Article articletochange = articleRepository.save(existingArticle);
+        return new ResponseEntity<>(articletochange, HttpStatus.OK);
+        
+    }
+
+    //Route pour delete un Article
+    @DeleteMapping("/deleteArticle/{articleId}")
+    public ResponseEntity<String> deleteArticleById(@PathVariable Long articleId) {
+        try {
+        articleService.deleteArticleById(articleId);
+        return new ResponseEntity<>("Suppression OK", HttpStatus.OK);
+        } catch (EntityNotFoundException  e) {
+        return new ResponseEntity<>("L'adresse n'a pas pu être trouvée pour la suppression", HttpStatus.NOT_FOUND);
+        }
+    }
 
 
-    
+
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
     {

@@ -49,6 +49,13 @@ export class NavBarComponentComponent implements OnInit {
     return !!sessionStorage.getItem('email'); // Vérifiez la présence des données de session
   }
 
+  isSellerLogin(): boolean {
+    return !!this.userData?.seller?.seller_id; // Vérifiez la présence du champ seller_id
+  }
+  redirectToManageArticle():void {
+    this.router.navigateByUrl(`/manageSeller/${this.userData?.seller?.seller_id}`); // Remplacez '/login' par votre route de connexion
+  }
+
   // Redirige l'utilisateur vers la page de connexion
   redirectToLogin(): void {
     this.router.navigateByUrl('/login'); // Remplacez '/login' par votre route de connexion
@@ -111,4 +118,6 @@ export class NavBarComponentComponent implements OnInit {
       this.router.navigateByUrl(route);
     }
   }
+
+
 }
