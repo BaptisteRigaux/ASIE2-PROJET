@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.EntityNotFoundException;
 import td.ecommerce.model.*;
 import td.ecommerce.repository.AdresseCustomers_Repository;
+import td.ecommerce.repository.Article_Repository;
 import td.ecommerce.repository.Customers_Repository;
+import td.ecommerce.repository.Seller_Repository;
+import td.ecommerce.repository.User_Repository;
 import td.ecommerce.service.*;
 
 import java.util.*;
@@ -28,11 +31,15 @@ public class UserController {
 
     private final AdresseCustomers_Repository addressRepository;
     private final Customers_Repository customersRepository;
+    private final Seller_Repository sellerRepository;
+    private final Article_Repository articleRepository;
+    private final User_Repository userRepository;
 
 
     @Autowired UserController(User_Service userService, Customers_Service customerService , Seller_Service sellerService ,
                               Article_Service articleService ,ArticlePriceHistory_Service articlePriceHistoryService ,Order_Service orderService ,
-                              AdresseCustomers_Service adresseCustomersService , Panier_Service panierService ,AdresseCustomers_Repository addressRepository ,Customers_Repository customersRepository ){
+                              AdresseCustomers_Service adresseCustomersService , Panier_Service panierService ,AdresseCustomers_Repository addressRepository ,Customers_Repository customersRepository,
+                              Seller_Repository sellerRepository , Article_Repository articleRepository ,User_Repository userRepository ){
         this.userService =userService;
         this.customerService = customerService;
         this.sellerService = sellerService;
@@ -43,7 +50,11 @@ public class UserController {
         this.panierService = panierService ;
         this.addressRepository =addressRepository;
         this.customersRepository=customersRepository;
+        this.sellerRepository = sellerRepository;
+        this.articleRepository = articleRepository;
+        this.userRepository = userRepository;
     }
+
 
     //Api permetttant de recupup les user 
     //Le login
@@ -119,6 +130,42 @@ public class UserController {
         return new ResponseEntity<>("L'adresse n'a pas pu être trouvée pour la suppression", HttpStatus.NOT_FOUND);
         }
     }
+
+    //route pour ajouter un article en étant déjà un seller
+    @PostMapping("/addArticle/{sellerId}")
+    public ResponseEntity<String> addArticleToSeller(@PathVariable Long sellerId, @RequestBody Article article) {
+        Optional<Seller> optionalSeller = sellerRepository.findById(sellerId);
+        System.err.println(optionalSeller);
+        
+        if (optionalSeller.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        Seller seller = optionalSeller.get();
+        article.setSeller(seller);
+        articleRepository.save(article);
+        
+        return ResponseEntity.ok("Article added successfully for Seller with ID: " + sellerId);
+    }
+
+    //route pour créer un seller 
+    @PostMapping("/addSeller/{userId}")
+    public ResponseEntity<Seller> addSellerToUser(@PathVariable Long userId , @RequestBody Seller seller) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = optionalUser.get();
+        seller.setUser(user);
+        Seller savedSeller = sellerRepository.save(seller);
+
+        return ResponseEntity.ok(savedSeller);
+    }
+
+
+
     
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()

@@ -41,7 +41,7 @@ export class NavBarComponentComponent implements OnInit {
   }
 
   home() {
-    this.router.navigateByUrl('//home');
+    this.router.navigateByUrl('/home');
   }
 
   // Cette méthode vérifie si l'utilisateur est connecté ou non
@@ -74,20 +74,41 @@ export class NavBarComponentComponent implements OnInit {
 
     const userId = this.userData?.user_id;
     const customerId = this.userData?.customers?.customer_id;
-
     console.log(userId); // Assurez-vous que userId est correct
 
     if (userId) {
-    let route = `/users/${userId}/personalInfos`;
+      let route = `/users/${userId}/personalInfos`;
 
-    if (customerId) {
-      route += `/${customerId}`;
+      if (customerId) {
+        route += `/${customerId}`;
+      }
+      else{
+        route += `/null`;
+      }
+
+      this.router.navigateByUrl(route);
+      console.log("Redirection vers la page des informations personnelles");
+    } else {
+      console.error('Impossible de récupérer l\'ID de l\'utilisateur.');
     }
-
-    this.router.navigateByUrl(route);
-    console.log("Redirection vers la page des informations personnelles");
-  } else {
-    console.error('Impossible de récupérer l\'ID de l\'utilisateur.');
-  }
   } 
+
+  redirectToAddArticle(): void {
+    const userId = this.userData?.user_id;
+    const SellerId = this.userData?.seller
+    console.log(SellerId);
+    console.log(SellerId?.seller_id);
+
+    if (userId) {
+      let route = `/AddArticle/${userId}`;
+      
+      if (SellerId) {
+        route += `/${SellerId.seller_id}`;
+      }
+      else{
+        route += `/null`;
+      }
+      this.router.navigateByUrl(route);
+    }
+  }
 }

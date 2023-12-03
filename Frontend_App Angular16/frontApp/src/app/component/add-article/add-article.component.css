@@ -1,0 +1,14 @@
+.sell-card {
+    width: 100%;
+    justify-content: center;
+  }
+  
+.sell-content {
+    max-width: 400px; /* Largeur maximale de la carte */
+    width: 100%; /* Pour occuper toute la largeur de la carte */
+}
+
+.center {
+    text-align: center;
+}
+

@@ -6,6 +6,7 @@ import { HomePageComponentComponent } from './component/home-page-component/home
 import { UserOrdersComponentComponent } from './component/user-orders-component/user-orders-component.component';
 import { PersonalInfosComponentComponent } from './component/personal-infos-component/personal-infos-component.component';
 import { AddAddressComponentComponent } from './component/add-address-component/add-address-component.component';
+import { AddArticleComponent } from './component/add-article/add-article.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "users/:userId/personalInfos/:customerId", 
     component: PersonalInfosComponentComponent , 
+  },
+  {
+    path: "AddArticle/:userId/:sellerId", 
+    component: AddArticleComponent , 
   },
 ];
 

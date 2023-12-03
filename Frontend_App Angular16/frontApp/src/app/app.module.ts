@@ -34,6 +34,8 @@ import { AddressDetailsComponent } from './component/address-details/address-det
 import { OrdersCardsComponent } from './component/orders-cards/orders-cards.component';
 import { AddAddressComponentComponent } from './component/add-address-component/add-address-component.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddArticleComponent } from './component/add-article/add-article.component';
+import { SellerCreationModalComponent } from './component/seller-creation-modal/seller-creation-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AddressDetailsComponent,
     OrdersCardsComponent,
     AddAddressComponentComponent,
+    AddArticleComponent,
+    SellerCreationModalComponent,
   ],
   imports: [
     BrowserModule,
