@@ -32,7 +32,6 @@ public class ArticlePriceHistory {
     private Date date_end;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
     @JoinColumn(name = "article_id")
     private Article article;
 

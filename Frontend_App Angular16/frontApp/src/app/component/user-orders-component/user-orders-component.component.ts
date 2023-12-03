@@ -8,9 +8,27 @@ interface Order {
   status_order: string;
   date_order: string;
   number_order: number;
-  articles: any[]; // Vous pouvez définir ici la structure appropriée pour les articles si nécessaire
+  articlePriceHistories: ArticlePriceHistory[]; // Vous pouvez définir ici la structure appropriée pour les articles si nécessaire
   total_amount: number;
 }
+
+export interface ArticlePriceHistory {
+  articleprice_history_id: number;
+  price_article: number;
+  price_start: string;
+  date_end: string;
+  article: Article;
+}
+
+export interface Article {
+  article_id: number;
+  name_article: string;
+  category: string;
+  description: string;
+  stock: number;
+  price: number;
+}
+
 
 @Component({
   selector: 'app-user-orders-component',
@@ -20,7 +38,7 @@ interface Order {
 
 export class UserOrdersComponentComponent implements OnInit {
 
-  displayedColumns: string[] = ['itemName', 'quantity','price'];
+  displayedColumns: string[] = ['itemName','price'];
   
   constructor(private orderService: OrderServiceService, private route: ActivatedRoute) { }
 

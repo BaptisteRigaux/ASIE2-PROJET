@@ -46,7 +46,7 @@ public class ECommerceApplication {
 
 
     //Bean de création pour tester le modèle
-    //@Bean
+    @Bean
     CommandLineRunner seeData(AdresseCustomers_Repository adresseCustomersRepository,
                               Customers_Repository customersRepository ,
                               Order_Repository orderRepository ,
@@ -57,14 +57,14 @@ public class ECommerceApplication {
                               ArticlePriceHistory_Repostory articlePriceHistoryRepostory){
         return args -> {
             //On Clean tous
-            adresseCustomersRepository.deleteAll();
-            customersRepository.deleteAll();
-            orderRepository.deleteAll();
-            sellerRepository.deleteAll();
-            userRepository.deleteAll();
-            panierRepository.deleteAll();
-            articleRepository.deleteAll();
-            articlePriceHistoryRepostory.deleteAll();
+             //adresseCustomersRepository.deleteAll();
+             //customersRepository.deleteAll();
+             //orderRepository.deleteAll();
+             //sellerRepository.deleteAll();
+             //userRepository.deleteAll();
+            // panierRepository.deleteAll();
+            //articleRepository.deleteAll();
+            //articlePriceHistoryRepostory.deleteAll();
 
         
             List<Article> articles = new ArrayList<>();
@@ -129,10 +129,10 @@ public class ECommerceApplication {
             orderRepository.save(order2);
 
             //Ajouter des articles aux commandes
-            order1.getArticles().add(Article1);
-            order1.getArticles().add(Article3);
-            order2.getArticles().add(Article1);
-            order2.getArticles().add(Article2);
+            order1.getArticlePriceHistories().add(articlePriceHistory1);
+            order1.getArticlePriceHistories().add(articlePriceHistory2);
+            order2.getArticlePriceHistories().add(articlePriceHistory1);
+            order2.getArticlePriceHistories().add(articlePriceHistory3);
 
             //Créer une liste d'article
            // Article article1 = articleRepository.findById(Article1.getArticle_id()).orElseThrow(); // Assurez-vous d'avoir l'ID correct.

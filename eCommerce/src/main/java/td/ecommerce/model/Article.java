@@ -42,6 +42,7 @@ public class Article {
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article",
             fetch = FetchType.EAGER,
             cascade = {CascadeType.ALL},

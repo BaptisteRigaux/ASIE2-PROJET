@@ -10,6 +10,7 @@ import td.ecommerce.model.*;
 import td.ecommerce.repository.AdresseCustomers_Repository;
 import td.ecommerce.repository.Article_Repository;
 import td.ecommerce.repository.Customers_Repository;
+import td.ecommerce.repository.Order_Repository;
 import td.ecommerce.repository.Seller_Repository;
 import td.ecommerce.repository.User_Repository;
 import td.ecommerce.service.*;
@@ -34,12 +35,13 @@ public class UserController {
     private final Seller_Repository sellerRepository;
     private final Article_Repository articleRepository;
     private final User_Repository userRepository;
+    private final Order_Repository orderRepository;
 
 
     @Autowired UserController(User_Service userService, Customers_Service customerService , Seller_Service sellerService ,
                               Article_Service articleService ,ArticlePriceHistory_Service articlePriceHistoryService ,Order_Service orderService ,
                               AdresseCustomers_Service adresseCustomersService , Panier_Service panierService ,AdresseCustomers_Repository addressRepository ,Customers_Repository customersRepository,
-                              Seller_Repository sellerRepository , Article_Repository articleRepository ,User_Repository userRepository ){
+                              Seller_Repository sellerRepository , Article_Repository articleRepository ,User_Repository userRepository , Order_Repository orderRepository ){
         this.userService =userService;
         this.customerService = customerService;
         this.sellerService = sellerService;
@@ -53,6 +55,7 @@ public class UserController {
         this.sellerRepository = sellerRepository;
         this.articleRepository = articleRepository;
         this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -211,7 +214,20 @@ public class UserController {
         }
     }
 
+    @GetMapping("/orders/{orderId}/articlePriceHistories")
+    public ResponseEntity<List<ArticlePriceHistory>> getArticlePriceHistoriesByOrderId(@PathVariable Long orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
 
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            List<ArticlePriceHistory> articlePriceHistories = order.getArticlePriceHistories();
+            return new ResponseEntity<>(articlePriceHistories, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+}
+
+    
 
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
