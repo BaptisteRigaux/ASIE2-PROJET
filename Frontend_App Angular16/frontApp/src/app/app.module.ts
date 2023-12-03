@@ -39,6 +39,7 @@ import { SellerCreationModalComponent } from './component/seller-creation-modal/
 import { ManageSellerComponent } from './component/manage-seller/manage-seller.component';
 import { EditArticleDialogComponent } from './component/edit-article-dialog/edit-article-dialog.component';
 import { FormsModule } from '@angular/forms'; // Importez FormsModule
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { FormsModule } from '@angular/forms'; // Importez FormsModule
     MatTableModule,
     MatDialogModule,
     FormsModule,
+    MatTooltipModule,
   ],
 
   providers: [MessageService],
