@@ -1,11 +1,7 @@
 package td.ecommerce.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "article_price_history")
@@ -34,15 +30,6 @@ public class ArticlePriceHistory {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")
     private Article article;
-
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(
-            name = "panier_articlehistory",
-            joinColumns = @JoinColumn(name = "articleprice_history_id"),
-            inverseJoinColumns = @JoinColumn(name = "panier_id")
-    )
-    private List<Panier> paniers = new ArrayList<>();
 
     public ArticlePriceHistory(int price_article, Date price_start, Date date_end, Article article) {
         this.price_article = price_article;
@@ -91,13 +78,5 @@ public class ArticlePriceHistory {
 
     public void setArticle(Article article) {
         this.article = article;
-    }
-
-    public List<Panier> getPaniers() {
-        return paniers;
-    }
-
-    public void setPaniers(List<Panier> paniers) {
-        this.paniers = paniers;
     }
 }

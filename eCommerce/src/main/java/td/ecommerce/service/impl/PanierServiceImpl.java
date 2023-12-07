@@ -3,9 +3,10 @@ package td.ecommerce.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import td.ecommerce.model.ArticlePriceHistory;
+
+import td.ecommerce.model.Article;
 import td.ecommerce.model.Panier;
-import td.ecommerce.repository.ArticlePriceHistory_Repostory;
+import td.ecommerce.repository.Article_Repository;
 import td.ecommerce.repository.Panier_Repository;
 import td.ecommerce.service.Panier_Service;
 
@@ -14,12 +15,12 @@ import java.util.List;
 @Service
 public class PanierServiceImpl implements Panier_Service {
     private final Panier_Repository panierRepository;
-    private final ArticlePriceHistory_Repostory articlePriceHistoryRepository;
+    private final Article_Repository articleRepository;
 
     @Autowired
-    public PanierServiceImpl(Panier_Repository panierRepository, ArticlePriceHistory_Repostory articlePriceHistoryRepository) {
+    public PanierServiceImpl(Panier_Repository panierRepository,Article_Repository articleRepository) {
         this.panierRepository = panierRepository;
-        this.articlePriceHistoryRepository = articlePriceHistoryRepository;
+        this.articleRepository = articleRepository;
     }
 
     @Override
@@ -37,24 +38,24 @@ public class PanierServiceImpl implements Panier_Service {
 
     @Override
     @Transactional
-    public void addToPanier(Long panierId, Long articlePriceHistoryId) {
+    public void addToPanier(Long panierId, Long articleId) {
         Panier panier = panierRepository.findById(panierId).orElse(null);
-        ArticlePriceHistory articlePriceHistory = articlePriceHistoryRepository.findById(articlePriceHistoryId).orElse(null);
+        Article articleToPanier = articleRepository.findById(articleId).orElse(null);
 
-        if (panier != null && articlePriceHistory != null) {
-            panier.getArticlePriceHistory().add(articlePriceHistory);
+        if (panier != null && articleToPanier != null) {
+            panier.getArticles().add(articleToPanier);
             panierRepository.save(panier);
         }
     }
 
     @Override
     @Transactional
-    public void removeFromPanier(Long panierId, Long articlePriceHistoryId) {
+    public void removeFromPanier(Long panierId, Long articleId) {
         Panier panier = panierRepository.findById(panierId).orElse(null);
-        ArticlePriceHistory articlePriceHistory = articlePriceHistoryRepository.findById(articlePriceHistoryId).orElse(null);
+        Article articleToPanier = articleRepository.findById(articleId).orElse(null);
 
-        if (panier != null && articlePriceHistory != null) {
-            panier.getArticlePriceHistory().remove(articlePriceHistory);
+        if (panier != null && articleToPanier != null) {
+            panier.getArticles().remove(articleToPanier);
             panierRepository.save(panier);
         }
     }

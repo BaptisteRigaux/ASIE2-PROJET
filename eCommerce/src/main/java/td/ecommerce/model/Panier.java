@@ -23,11 +23,11 @@ public class Panier {
 
     @ManyToMany
     @JoinTable(
-            name = "panier_articlehistory",
+            name = "panier_article",
             joinColumns = @JoinColumn(name = "panier_id"),
-            inverseJoinColumns = @JoinColumn(name = "articleprice_history_id")
+            inverseJoinColumns = @JoinColumn(name = "article_id")
     )
-    private List<ArticlePriceHistory> articlePriceHistory = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
     public Panier(User user) {
         this.user = user;
@@ -51,11 +51,11 @@ public class Panier {
         this.user = user;
     }
 
-    public List<ArticlePriceHistory> getArticlePriceHistory() {
-        return articlePriceHistory;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public void setArticlePriceHistory(List<ArticlePriceHistory> articlePriceHistory) {
-        this.articlePriceHistory = articlePriceHistory;
+    public void setArticle(List<Article> articles) {
+        this.articles = articles;
     }
 }

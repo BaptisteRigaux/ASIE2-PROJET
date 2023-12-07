@@ -49,6 +49,15 @@ public class Article {
             orphanRemoval = true)
     private List<ArticlePriceHistory> articlePriceHistories = new ArrayList<>();
 
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "panier_article",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "panier_id")
+    )
+    private List<Panier> paniers = new ArrayList<>();
+
     public Article(String name_article, String catégory, String description, int stock, int price , Seller seller) {
         this.name_article = name_article;
         this.catégory = catégory;
@@ -124,6 +133,15 @@ public class Article {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public List<Panier> getPaniers() {
+        return paniers;
+    }
+
+    public void setPaniers(List<Panier> paniers) {
+        this.paniers = paniers;
+    }
+
 
     @Override
     public int hashCode() {

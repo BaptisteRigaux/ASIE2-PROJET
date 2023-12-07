@@ -9,7 +9,7 @@ public interface Panier_Service {
 
     Panier getPanierById(Long id);
 
-    void addToPanier(Long panierId, Long articlePriceHistoryId);
+    void addToPanier(Long panierId, Long articleId);
 
-    void removeFromPanier(Long panierId, Long articlePriceHistoryId);
+    void removeFromPanier(Long panierId, Long articleId);
 }

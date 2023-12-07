@@ -57,14 +57,15 @@ public class ECommerceApplication {
                               ArticlePriceHistory_Repostory articlePriceHistoryRepostory){
         return args -> {
             //On Clean tous
-             //adresseCustomersRepository.deleteAll();
-             //customersRepository.deleteAll();
-             //orderRepository.deleteAll();
-             //sellerRepository.deleteAll();
-             //userRepository.deleteAll();
-            // panierRepository.deleteAll();
-            //articleRepository.deleteAll();
-            //articlePriceHistoryRepostory.deleteAll();
+            adresseCustomersRepository.deleteAll();
+            customersRepository.deleteAll();
+            articlePriceHistoryRepostory.deleteAll();
+            articleRepository.deleteAll();
+            orderRepository.deleteAll();
+            sellerRepository.deleteAll();
+            userRepository.deleteAll();
+            panierRepository.deleteAll();
+            
 
         
             List<Article> articles = new ArrayList<>();
@@ -142,19 +143,13 @@ public class ECommerceApplication {
             articles.add(article2);
 
             Panier panier1 = new Panier(user1);
-            List<ArticlePriceHistory> articlePriceHistories =articlePriceHistoryRepostory.findAll();
-            panier1.getArticlePriceHistory().addAll(articlePriceHistories);
+            List<Article> articlesPanier = articleRepository.findAll();
+            panier1.getArticles().addAll(articlesPanier);
             panierRepository.save(panier1);
 
             // Enregistrer les modifications
             orderRepository.save(order1);
             orderRepository.save(order2);
-
-            // Supprimer un ArticlePriceHistory du panier
-            ArticlePriceHistory articlePriceHistoryToRemove = articlePriceHistories.get(1); // Supprimez le premier ArticlePriceHistory par exemple
-            panier1.getArticlePriceHistory().remove(articlePriceHistoryToRemove);
-            panierRepository.save(panier1);
-
         };
     }
 
