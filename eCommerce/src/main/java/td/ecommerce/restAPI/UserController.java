@@ -11,6 +11,7 @@ import td.ecommerce.repository.AdresseCustomers_Repository;
 import td.ecommerce.repository.Article_Repository;
 import td.ecommerce.repository.Customers_Repository;
 import td.ecommerce.repository.Order_Repository;
+import td.ecommerce.repository.Panier_Repository;
 import td.ecommerce.repository.Seller_Repository;
 import td.ecommerce.repository.User_Repository;
 import td.ecommerce.service.*;
@@ -36,12 +37,14 @@ public class UserController {
     private final Article_Repository articleRepository;
     private final User_Repository userRepository;
     private final Order_Repository orderRepository;
+    private final Panier_Repository panierRepository;
 
 
     @Autowired UserController(User_Service userService, Customers_Service customerService , Seller_Service sellerService ,
                               Article_Service articleService ,ArticlePriceHistory_Service articlePriceHistoryService ,Order_Service orderService ,
                               AdresseCustomers_Service adresseCustomersService , Panier_Service panierService ,AdresseCustomers_Repository addressRepository ,Customers_Repository customersRepository,
-                              Seller_Repository sellerRepository , Article_Repository articleRepository ,User_Repository userRepository , Order_Repository orderRepository ){
+                              Seller_Repository sellerRepository , Article_Repository articleRepository ,User_Repository userRepository , Order_Repository orderRepository,
+                              Panier_Repository panierRepository ){
         this.userService =userService;
         this.customerService = customerService;
         this.sellerService = sellerService;
@@ -56,6 +59,7 @@ public class UserController {
         this.articleRepository = articleRepository;
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
+        this.panierRepository = panierRepository;
     }
 
 
@@ -225,9 +229,42 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-}
+    }
 
-    
+    @PostMapping("/addToPanier/{panierId}/{userId}")
+    public ResponseEntity<String> addArticleToPanier(@PathVariable(required = false) String panierId, @PathVariable Long userId, @RequestBody Article article) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        User user = optionalUser.get();
+        Panier panier;
+
+        if (panierId == null || panierId.equals("null")) {
+            // Créez un nouveau panier si panierId est null
+            panier = new Panier(user);
+
+        } else {
+            // Vérifiez si le panier existe pour l'ID donné
+            Long panierIdLong = Long.parseLong(panierId);
+            Optional<Panier> optionalPanier = panierRepository.findById(panierIdLong);
+            if (optionalPanier.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            panier = optionalPanier.get();
+        }
+
+        // Ajoutez l'article au panier de l'utilisateur
+        panier.getArticles().add(article);
+
+        // Mettez à jour l'utilisateur dans la base de données
+        panierRepository.save(panier);
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Article ajouté avec succès au panier de l'utilisateur.");
+    }
 
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()

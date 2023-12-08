@@ -9,7 +9,7 @@
           <mat-icon>home</mat-icon>
           <span>Home</span>
         </button>
-                
+
         <!-- Bouton pour les commandes -->
         <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToOrders()">
           <mat-icon>assignment</mat-icon>
@@ -50,4 +50,17 @@
     </mat-menu>
   </span>
   <span class="fill-remaining-space">Application Title</span>
+</mat-toolbar>
+
+<mat-toolbar color="primary">
+  <!-- Vos autres éléments de barre de navigation ici -->
+
+  <span class="fill-remaining-space">
+    <!-- Votre menu et autres éléments -->
+  </span>
+  <button mat-icon-button [matBadge]="getCartItemCount()" matBadgeColor="warn" class="buttonPanier">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+  <!-- Icône de panier avec badge -->
+  
 </mat-toolbar>

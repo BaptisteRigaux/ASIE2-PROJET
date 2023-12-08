@@ -46,7 +46,7 @@ public class ECommerceApplication {
 
 
     //Bean de création pour tester le modèle
-    @Bean
+    //@Bean
     CommandLineRunner seeData(AdresseCustomers_Repository adresseCustomersRepository,
                               Customers_Repository customersRepository ,
                               Order_Repository orderRepository ,

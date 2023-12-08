@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "panier")
 public class Panier {
@@ -19,6 +21,7 @@ public class Panier {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToMany

@@ -40,6 +40,7 @@ import { ManageSellerComponent } from './component/manage-seller/manage-seller.c
 import { EditArticleDialogComponent } from './component/edit-article-dialog/edit-article-dialog.component';
 import { FormsModule } from '@angular/forms'; // Importez FormsModule
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     FormsModule,
     MatTooltipModule,
-  ],
+    MatBadgeModule,    
+   ],
 
   providers: [MessageService],
   bootstrap: [AppComponent]

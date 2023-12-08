@@ -50,8 +50,8 @@ public class User {
 
     @OneToOne(mappedBy = "user") // Définit le lien unidirectionnel
     private Customers customers;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Panier panier;
 
     public User(String firstname, String lastname, String email, LocalDate dateOfBirth, String gender, Date registrationDate, String password) {

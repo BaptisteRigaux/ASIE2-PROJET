@@ -119,5 +119,8 @@ export class NavBarComponentComponent implements OnInit {
     }
   }
 
+  getCartItemCount(): number {
+    return this.userData?.panier?.articles.length || 0;
+  }
 
 }
