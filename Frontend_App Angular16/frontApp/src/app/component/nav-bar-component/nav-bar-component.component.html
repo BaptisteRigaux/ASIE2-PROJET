@@ -58,9 +58,14 @@
   <span class="fill-remaining-space">
     <!-- Votre menu et autres éléments -->
   </span>
-  <button mat-icon-button [matBadge]="getCartItemCount()" matBadgeColor="warn" class="buttonPanier">
+  <button mat-icon-button [matBadge]="getCartItemCount()" [disabled]="isCartEmpty()" matBadgeColor="warn" class="buttonPanier" (click)="redirectToOrderPage()">
     <mat-icon>shopping_cart</mat-icon>
   </button>
   <!-- Icône de panier avec badge -->
   
 </mat-toolbar>
+
+
+<div *ngIf="isCartEmpty()">
+    <p class="empty-cart-message" > Votre panier est vide , Ajoutez des articles avant de commander</p>
+</div>

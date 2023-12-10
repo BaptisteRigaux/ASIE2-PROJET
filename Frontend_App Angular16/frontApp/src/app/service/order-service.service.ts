@@ -24,13 +24,21 @@ export class OrderServiceService {
     console.log(panierId)
     if(panierId !== null && panierId !== undefined){
       const url = `${this.apiUrl}/addToPanier/${panierId}/${userId}`;
-      console.log(url)
       return this.http.post<any>(url,article);
     }else {
       const url = `${this.apiUrl}/addToPanier/null/${userId}`
-      console.log(url)
       return this.http.post<any>(url,article);
     }
+  }
+
+  getPanier(panierId: number):Observable<any>{
+    const url = `${this.apiUrl}/order/${panierId}`;
+    return this.http.get<any>(url)
+    
+  };
+
+  supprimerArticleDuPanier(panierId: number, articleId: number) {
+    return this.http.delete(`${this.apiUrl}/panier/${panierId}/article/${articleId}`);
   }
 
 }

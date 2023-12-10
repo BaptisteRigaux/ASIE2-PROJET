@@ -12,4 +12,6 @@ public interface Panier_Service {
     void addToPanier(Long panierId, Long articleId);
 
     void removeFromPanier(Long panierId, Long articleId);
+    
+    void clearUserPanier(Long userId);
 }

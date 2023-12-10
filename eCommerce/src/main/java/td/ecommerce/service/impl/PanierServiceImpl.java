@@ -59,4 +59,9 @@ public class PanierServiceImpl implements Panier_Service {
             panierRepository.save(panier);
         }
     }
+
+    @Override
+    public void clearUserPanier(Long userId) {
+        panierRepository.deleteByUserId(userId);
+    }
 }

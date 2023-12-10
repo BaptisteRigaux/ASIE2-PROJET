@@ -123,4 +123,17 @@ export class NavBarComponentComponent implements OnInit {
     return this.userData?.panier?.articles.length || 0;
   }
 
+  //Fonction pour vérifié si le panier est vide 
+  isCartEmpty(): boolean {
+    return this.userData?.panier?.articles.length === 0;
+  }
+
+  redirectToOrderPage(){
+    const userId = this.userData?.user_id;
+    const panierId = this.userData?.panier?.panier_id;
+    console.log(panierId);
+    this.router.navigate(['/order',userId,panierId, 'command']);
+
+  }
+
 }

@@ -231,6 +231,7 @@ public class UserController {
         }
     }
 
+    //Permets d'ajouter des article sur un utilisateur ou un panier en fonction de si un existe déjà
     @PostMapping("/addToPanier/{panierId}/{userId}")
     public ResponseEntity<String> addArticleToPanier(@PathVariable(required = false) String panierId, @PathVariable Long userId, @RequestBody Article article) {
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -266,12 +267,122 @@ public class UserController {
         return ResponseEntity.ok("Article ajouté avec succès au panier de l'utilisateur.");
     }
 
+    //Route pour avoir les Articles d'un sellerId
+    @GetMapping("/order/{panierId}")
+    public ResponseEntity<Panier> getPanierById(@PathVariable Long panierId)
+    {
+        Optional<Panier> optionalPanier = panierRepository.findById(panierId);
+        
+        if (optionalPanier.isEmpty()) {
+            return ResponseEntity.notFound().build();
+            
+        }
+
+        Panier panier = optionalPanier.get();
+        return ResponseEntity.ok(panier);
+    }
+
+
+
+
+    //supprimé un article du panier connu
+    // UserController.java
+    @DeleteMapping("/panier/{panierId}/article/{articleId}")
+    public ResponseEntity<String> deleteArticleFromPanier(@PathVariable Long panierId, @PathVariable Long articleId) {
+        try {
+            Panier panier = panierService.getPanierById(panierId);
+            Article articleToRemove = articleService.getArticleById(articleId);
+
+            if (panier == null || articleToRemove == null) {
+                return new ResponseEntity<>("Panier ou Article introuvable", HttpStatus.NOT_FOUND);
+            }
+
+            panier.getArticles().remove(articleToRemove);
+            panierRepository.save(panier);
+
+            return new ResponseEntity<>("Article supprimé du panier", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la suppression de l'article du panier", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    //Créer un achat pour utilsateur qui à déjà acheter : 
+    @PostMapping("/users/{userId}/addOrder")
+    public ResponseEntity<Order> addOrderToCustomer(@PathVariable Long userId, @RequestBody List<Article> articles) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        System.out.println(userOptional);
+
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOptional.get();
+        Customers customer = user.getCustomers();
+
+        if (customer == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        
+        System.out.println(customer);
+        Order newOrder = new Order();
+        newOrder.setCustomers(customer);
+        newOrder.setStatus_order("En attente");
+        newOrder.setDate_order(new Date()); // Utilisez la date actuelle pour la commande
+
+        System.out.println(newOrder);
+
+        int totalAmount = 0;
+        List<ArticlePriceHistory> articlePriceHistories = new ArrayList<>();
+        for (Article article : articles) {
+
+
+            System.out.println(article.getArticle_id());
+            ArticlePriceHistory latestHistory = articleService.getLatestPriceHistoryForArticle(article.getArticle_id());
+            System.out.println("test " +  latestHistory);
+
+            if (latestHistory != null) {
+                articlePriceHistories.add(latestHistory);
+                totalAmount += latestHistory.getPrice_article(); // Calcul du montant total
+            } else {
+                // Gérer le cas où l'historique des prix n'est pas trouvé pour un article
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                    .body(null); // Ou gérer de manière plus détaillée
+            }
+        }
+        newOrder.setArticlePriceHistories(articlePriceHistories);
+        newOrder.setTotal_amount(totalAmount); // Définir le montant total
+
+        try {
+            Order savedOrder = orderRepository.save(newOrder);
+            // Si la commande est sauvegardée avec succès, nettoyez le panier
+            panierService.clearUserPanier(userId); // Supprimez les articles du panier
+    
+            return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // Gérer l'exception en cas d'échec de l'ajout de la commande
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body(null);
+        }
+    }
+
+    
+
+
+
+
+
+
+
     @GetMapping("/allcustomers")
     public ResponseEntity<List<Customers>> getAllCustomers()
     {
         List<Customers> listeCustomers = customerService.getAllCustomers();
         return new ResponseEntity<List<Customers>>(listeCustomers,HttpStatus.CREATED);
     }
+
+
+    
 
 
 

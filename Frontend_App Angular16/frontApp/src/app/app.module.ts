@@ -41,6 +41,7 @@ import { EditArticleDialogComponent } from './component/edit-article-dialog/edit
 import { FormsModule } from '@angular/forms'; // Importez FormsModule
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CommandpageComponent } from './component/commandpage/commandpage.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     SellerCreationModalComponent,
     ManageSellerComponent,
     EditArticleDialogComponent,
+    CommandpageComponent,
   ],
   imports: [
     BrowserModule,

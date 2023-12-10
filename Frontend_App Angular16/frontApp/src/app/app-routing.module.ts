@@ -8,6 +8,7 @@ import { PersonalInfosComponentComponent } from './component/personal-infos-comp
 import { AddAddressComponentComponent } from './component/add-address-component/add-address-component.component';
 import { AddArticleComponent } from './component/add-article/add-article.component';
 import { ManageSellerComponent } from './component/manage-seller/manage-seller.component';
+import { CommandpageComponent } from './component/commandpage/commandpage.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: "AddArticle/:userId/:sellerId", 
     component: AddArticleComponent , 
+  },
+  {
+    path: "order/:userId/:panierId/command", 
+    component: CommandpageComponent , 
   }
 ];
 
