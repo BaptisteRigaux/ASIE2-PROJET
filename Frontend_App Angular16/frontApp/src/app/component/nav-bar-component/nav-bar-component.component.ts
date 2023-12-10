@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderServiceService } from 'src/app/service/order-service.service';
 
 @Component({
   selector: 'app-nav-bar-component',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponentComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private orderService: OrderServiceService) {}
 
   userEmail: string | null = null; // Variable pour stocker l'email de l'utilisateur
   userData: any; // Variable pour stocker les données utilisateur
@@ -29,6 +30,10 @@ export class NavBarComponentComponent implements OnInit {
         }
       );
     }
+
+    this.orderService.onArticleAddedToPanier.subscribe(() => {
+      this.refreshPanierData();
+    });
   }
   
   logout() {
@@ -134,6 +139,20 @@ export class NavBarComponentComponent implements OnInit {
     console.log(panierId);
     this.router.navigate(['/order',userId,panierId, 'command']);
 
+  }
+
+  private refreshPanierData() {
+    // Ici, vous pouvez rappeler votre API pour obtenir les données à jour du panier
+    if (this.userEmail) {
+      this.http.get(`http://localhost:8080/user/email=${this.userEmail}`).subscribe(
+        (data: any) => {
+          this.userData = data; // Mettez à jour les données de l'utilisateur, y compris les données du panier
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des données utilisateur : ', error);
+        }
+      );
+    }
   }
 
 }

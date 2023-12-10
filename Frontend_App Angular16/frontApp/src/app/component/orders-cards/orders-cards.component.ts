@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { OrderServiceService } from "src/app/service/order-service.service";
 import { SericeAuthService } from 'src/app/service/serice-auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-orders-cards',
@@ -14,7 +15,7 @@ export class OrdersCardsComponent implements OnInit{
   SericeAuthService: any;
   userEmail!: string | null ;
 
-  constructor(private orderService: OrderServiceService , private http: HttpClient) { }
+  constructor(private orderService: OrderServiceService , private http: HttpClient,  private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.orderService.getAllArticles().subscribe(
@@ -50,9 +51,20 @@ export class OrdersCardsComponent implements OnInit{
     this.orderService.addToPanier(panierId, userId, article).subscribe(
       (response: any) => {
         console.log('Article ajouté avec succès au panier !');
+        this.snackBar.open('Article ajouté avec succès au panier !', 'Fermer', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+        this.orderService.onArticleAddedToPanier.emit(); // Déclencher l'événement
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'article au panier : ', error);
+        this.snackBar.open('Erreur lors de l\'ajout de l\'article au panier.', 'Fermer', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
       }
     );
   }

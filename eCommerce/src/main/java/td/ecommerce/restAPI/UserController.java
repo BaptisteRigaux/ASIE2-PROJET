@@ -233,7 +233,7 @@ public class UserController {
 
     //Permets d'ajouter des article sur un utilisateur ou un panier en fonction de si un existe déjà
     @PostMapping("/addToPanier/{panierId}/{userId}")
-    public ResponseEntity<String> addArticleToPanier(@PathVariable(required = false) String panierId, @PathVariable Long userId, @RequestBody Article article) {
+    public ResponseEntity<Map<String, String>> addArticleToPanier(@PathVariable(required = false) String panierId, @PathVariable Long userId, @RequestBody Article article) {
         Optional<User> optionalUser = userRepository.findById(userId);
         
         if (optionalUser.isEmpty()) {
@@ -243,10 +243,13 @@ public class UserController {
         User user = optionalUser.get();
         Panier panier;
 
-        if (panierId == null || panierId.equals("null")) {
-            // Créez un nouveau panier si panierId est null
+        // Vérification si le panier à été créer entre temps
+        Optional<Panier> existingPanierOptional = panierRepository.findByUserId(userId);
+        if (existingPanierOptional.isPresent()) {
+            panier = existingPanierOptional.get();
+        } else if (panierId == null || panierId.equals("null")) {
+            // Créez un nouveau panier si l'utilisateur n'en a pas et panierId est null
             panier = new Panier(user);
-
         } else {
             // Vérifiez si le panier existe pour l'ID donné
             Long panierIdLong = Long.parseLong(panierId);
@@ -256,7 +259,6 @@ public class UserController {
             }
             panier = optionalPanier.get();
         }
-
         // Ajoutez l'article au panier de l'utilisateur
         panier.getArticles().add(article);
 
@@ -264,7 +266,9 @@ public class UserController {
         panierRepository.save(panier);
         userRepository.save(user);
 
-        return ResponseEntity.ok("Article ajouté avec succès au panier de l'utilisateur.");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Article ajouté avec succès au panier de l'utilisateur.");
+        return ResponseEntity.ok(response);
     }
 
     //Route pour avoir les Articles d'un sellerId

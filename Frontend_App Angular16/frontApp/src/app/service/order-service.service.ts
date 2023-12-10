@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Article } from '../component/user-orders-component/user-orders-component.component';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderServiceService {
 
+  onArticleAddedToPanier = new EventEmitter<void>();
   private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
@@ -22,13 +24,13 @@ export class OrderServiceService {
 
   addToPanier(panierId: number | null |undefined, userId:number, article :Article):Observable<any> {
     console.log(panierId)
-    if(panierId !== null && panierId !== undefined){
-      const url = `${this.apiUrl}/addToPanier/${panierId}/${userId}`;
-      return this.http.post<any>(url,article);
-    }else {
-      const url = `${this.apiUrl}/addToPanier/null/${userId}`
-      return this.http.post<any>(url,article);
-    }
+    const url = panierId !== null && panierId !== undefined 
+                ? `${this.apiUrl}/addToPanier/${panierId}/${userId}` 
+                : `${this.apiUrl}/addToPanier/null/${userId}`;
+
+    console.log(`Sending request to: ${url} with article:`, article);
+    return this.http.post(url, article, { responseType: 'text' });
+    this.onArticleAddedToPanier.emit(); // Émettre un événement après l'ajout réussi
   }
 
   getPanier(panierId: number):Observable<any>{
