@@ -27,7 +27,6 @@ export class EditArticleDialogComponent {
   /* Méthode pour sauvegarder les modifications de l'article */
   saveChanges(): void {
     // Ici, vous pouvez utiliser this.selectedArticle pour envoyer les données à votre API
-    // Par exemple, si vous utilisez HttpClient pour envoyer une requête POST
     this.http.put(`http://localhost:8080/api/updateArticle/${this.selectedArticle.article_id}`, this.selectedArticle)
       .subscribe(
         (response) => {

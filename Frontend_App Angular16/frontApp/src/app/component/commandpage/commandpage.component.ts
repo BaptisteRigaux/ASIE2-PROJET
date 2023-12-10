@@ -87,7 +87,8 @@ export class CommandpageComponent implements OnInit{
     this.addOrder(userId, this.articles).subscribe({
       next: (response) => {
         console.log('Commande ajoutée avec succès', response);
-        this.router.navigate([`/users/${userId}/orders`]);
+        const customerId = response.customerId; // Récupérez l'ID du Customers
+        this.router.navigate([`/users/${customerId}/orders`]); // Utilisez l'ID du Customers pour la redirection
       },
       error: (error) => {
         console.error('Erreur lors de l\'ajout de la commande', error);

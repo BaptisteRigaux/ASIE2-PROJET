@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderServiceService } from 'src/app/service/order-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-nav-bar-component',
@@ -10,7 +11,10 @@ import { OrderServiceService } from 'src/app/service/order-service.service';
 })
 export class NavBarComponentComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient, private orderService: OrderServiceService) {}
+  constructor(private router: Router, 
+    private http: HttpClient, 
+    private orderService: OrderServiceService,
+    private snackBar: MatSnackBar) {}
 
   userEmail: string | null = null; // Variable pour stocker l'email de l'utilisateur
   userData: any; // Variable pour stocker les données utilisateur
@@ -73,6 +77,7 @@ export class NavBarComponentComponent implements OnInit {
 
   redirectToOrders(): void {
     const customer_id = this.userData.customers?.customer_id;
+
     console.log(customer_id); // Assurez-vous que userId est correct
     if (customer_id) {
       this.router.navigateByUrl(`/users/${customer_id}/orders`);
@@ -136,8 +141,16 @@ export class NavBarComponentComponent implements OnInit {
   redirectToOrderPage(){
     const userId = this.userData?.user_id;
     const panierId = this.userData?.panier?.panier_id;
-    console.log(panierId);
-    this.router.navigate(['/order',userId,panierId, 'command']);
+
+    if (panierId && !this.isCartEmpty()) {
+      console.log(panierId);
+      this.router.navigate(['/order', userId, panierId, 'command']);
+    } else {
+        // Utilisez MatSnackBar pour afficher un message
+        this.snackBar.open('Vous ne pouvez pas consulter votre panier car il est vide. Ajoutez des articles avant.', 'Fermer', {
+            duration: 3000 // Durée d'affichage du Snackbar en millisecondes
+        });
+    }
 
   }
 

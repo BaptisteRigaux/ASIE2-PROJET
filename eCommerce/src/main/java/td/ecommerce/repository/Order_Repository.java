@@ -15,4 +15,8 @@ public interface Order_Repository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o WHERE o.customers.customer_id = :customerId")
     List<Order> findByCustomersCustomerId(@Param("customerId")Long customerId);    
+
+
+    @Query("SELECT MAX(o.number_order) FROM Order o")
+    Integer findMaxOrderNumber();
 }

@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { OrderServiceService } from "src/app/service/order-service.service";
 import { SericeAuthService } from 'src/app/service/serice-auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-orders-cards',
@@ -15,7 +18,12 @@ export class OrdersCardsComponent implements OnInit{
   SericeAuthService: any;
   userEmail!: string | null ;
 
-  constructor(private orderService: OrderServiceService , private http: HttpClient,  private snackBar: MatSnackBar) { }
+  constructor(private orderService: OrderServiceService,
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private router: Router,
+    ){}
 
   ngOnInit(): void {
     this.orderService.getAllArticles().subscribe(
@@ -47,25 +55,37 @@ export class OrdersCardsComponent implements OnInit{
     const userId = this.userData?.user_id;
     const panierId = this.userData?.panier?.panier_id;
 
-    // Envoyer la demande d'ajout d'article au panier
-    this.orderService.addToPanier(panierId, userId, article).subscribe(
-      (response: any) => {
-        console.log('Article ajouté avec succès au panier !');
-        this.snackBar.open('Article ajouté avec succès au panier !', 'Fermer', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-        this.orderService.onArticleAddedToPanier.emit(); // Déclencher l'événement
-      },
-      (error) => {
-        console.error('Erreur lors de l\'ajout de l\'article au panier : ', error);
-        this.snackBar.open('Erreur lors de l\'ajout de l\'article au panier.', 'Fermer', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
+    if (!this.isLoggedIn()) {
+      // Utiliser confirm() pour demander à l'utilisateur s'il souhaite s'inscrire
+      if (confirm("Vous devez être connecté pour ajouter des articles au panier. Voulez-vous vous inscrire ?")) {
+        this.router.navigate(['/registrer']); // Rediriger vers la page d'inscription
       }
-    );
+    } else {
+      // Envoyer la demande d'ajout d'article au panier
+      this.orderService.addToPanier(panierId, userId, article).subscribe(
+        (response: any) => {
+          console.log('Article ajouté avec succès au panier !');
+          this.snackBar.open('Article ajouté avec succès au panier !', 'Fermer', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.orderService.onArticleAddedToPanier.emit(); // Déclencher l'événement
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout de l\'article au panier : ', error);
+          this.snackBar.open('Erreur lors de l\'ajout de l\'article au panier.', 'Fermer', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+        }
+      );
+    }
+  }
+
+  isLoggedIn(): boolean {
+    // Implémentez votre logique de vérification de connexion ici
+    return !!sessionStorage.getItem('email');
   }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.EntityNotFoundException;
 import td.ecommerce.model.*;
 import td.ecommerce.repository.AdresseCustomers_Repository;
+import td.ecommerce.repository.ArticlePriceHistory_Repostory;
 import td.ecommerce.repository.Article_Repository;
 import td.ecommerce.repository.Customers_Repository;
 import td.ecommerce.repository.Order_Repository;
@@ -38,13 +39,14 @@ public class UserController {
     private final User_Repository userRepository;
     private final Order_Repository orderRepository;
     private final Panier_Repository panierRepository;
+    private final ArticlePriceHistory_Repostory articlePriceHistoryRepostory;
 
 
     @Autowired UserController(User_Service userService, Customers_Service customerService , Seller_Service sellerService ,
                               Article_Service articleService ,ArticlePriceHistory_Service articlePriceHistoryService ,Order_Service orderService ,
                               AdresseCustomers_Service adresseCustomersService , Panier_Service panierService ,AdresseCustomers_Repository addressRepository ,Customers_Repository customersRepository,
                               Seller_Repository sellerRepository , Article_Repository articleRepository ,User_Repository userRepository , Order_Repository orderRepository,
-                              Panier_Repository panierRepository ){
+                              Panier_Repository panierRepository, ArticlePriceHistory_Repostory articlePriceHistoryRepostory ){
         this.userService =userService;
         this.customerService = customerService;
         this.sellerService = sellerService;
@@ -60,6 +62,7 @@ public class UserController {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.panierRepository = panierRepository;
+        this.articlePriceHistoryRepostory = articlePriceHistoryRepostory;
     }
 
 
@@ -150,8 +153,19 @@ public class UserController {
         
         Seller seller = optionalSeller.get();
         article.setSeller(seller);
-        articleRepository.save(article);
-        
+        Article savedArticle = articleRepository.save(article);
+
+        ArticlePriceHistory articlePriceHistory = new ArticlePriceHistory();
+        articlePriceHistory.setPrice_article(savedArticle.getPrice());
+        articlePriceHistory.setPrice_start(new Date());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 25);
+        articlePriceHistory.setDate_end(calendar.getTime()); // Date de fin à maintenant + 25 jours
+        articlePriceHistory.setArticle(savedArticle);
+
+        articlePriceHistoryRepostory.save(articlePriceHistory);
+
         // Créez un objet JSON pour renvoyer une réponse plus structurée
         Map<String, String> response = new HashMap<>();
         response.put("message", "Article added successfully for Seller with ID: " + sellerId);
@@ -195,6 +209,23 @@ public class UserController {
         }
 
         Article existingArticle = optionalArticle.get();
+
+        // Vérifier si le prix a changé
+        if (existingArticle.getPrice() != updatedArticle.getPrice()) {
+            existingArticle.setPrice(updatedArticle.getPrice());
+
+            // Créer un nouvel ArticlePriceHistory si le prix a changé
+            ArticlePriceHistory newPriceHistory = new ArticlePriceHistory();
+            newPriceHistory.setPrice_article(updatedArticle.getPrice());
+            newPriceHistory.setPrice_start(new Date()); // Date actuelle
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, 25); // Ajouter 25 jours
+            newPriceHistory.setDate_end(calendar.getTime()); // Date de fin à maintenant + 25 jours
+            newPriceHistory.setArticle(existingArticle); // Associer avec l'article mis à jour
+
+            // Sauvegarder le nouvel historique des prix
+            articlePriceHistoryRepostory.save(newPriceHistory);
+        }
 
         existingArticle.setName_article(updatedArticle.getName_article());
         existingArticle.setDescription(updatedArticle.getDescription());
@@ -313,9 +344,9 @@ public class UserController {
 
     //Créer un achat pour utilsateur qui à déjà acheter : 
     @PostMapping("/users/{userId}/addOrder")
-    public ResponseEntity<Order> addOrderToCustomer(@PathVariable Long userId, @RequestBody List<Article> articles) {
+    public ResponseEntity<Map<String, Object>> addOrderToCustomer(@PathVariable Long userId, @RequestBody List<Article> articles) {
+        
         Optional<User> userOptional = userRepository.findById(userId);
-        System.out.println(userOptional);
 
         if (userOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -325,12 +356,27 @@ public class UserController {
         Customers customer = user.getCustomers();
 
         if (customer == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            customer = new Customers();
+            customer.setUser(user);
+            customer.setCommand_site(true);
+            customer.setCommand(0); // Définissez le nombre initial de commandes
+            customer.setTotal_spend(0); // Définissez la dépense totale initiale
+            // Sauvegardez le nouveau Customers
+            customersRepository.save(customer);
+            user.setCustomers(customer); // Associez le Customers à l'utilisateur
+            userRepository.save(user); // Mettez à jour l'utilisateur
+        }
+
+        // Obtenir le dernier numéro de commande
+        Integer lastOrderNumber = orderRepository.findMaxOrderNumber();
+        if (lastOrderNumber == null) {
+            lastOrderNumber = 0; // Si aucune commande n'existe, commencez à partir de 1
         }
         
         System.out.println(customer);
         Order newOrder = new Order();
         newOrder.setCustomers(customer);
+        newOrder.setNumber_order(lastOrderNumber + 1);
         newOrder.setStatus_order("En attente");
         newOrder.setDate_order(new Date()); // Utilisez la date actuelle pour la commande
 
@@ -359,10 +405,14 @@ public class UserController {
 
         try {
             Order savedOrder = orderRepository.save(newOrder);
-            // Si la commande est sauvegardée avec succès, nettoyez le panier
             panierService.clearUserPanier(userId); // Supprimez les articles du panier
+
+            // Créez une map pour la réponse
+            Map<String, Object> response = new HashMap<>();
+            response.put("order", savedOrder);
+            response.put("customerId", customer.getCustomer_id()); // Inclure l'ID du Customers
     
-            return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             // Gérer l'exception en cas d'échec de l'ajout de la commande
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

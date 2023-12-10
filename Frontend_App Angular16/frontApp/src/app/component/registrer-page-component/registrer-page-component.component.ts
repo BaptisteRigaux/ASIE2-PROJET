@@ -5,6 +5,7 @@ import { passwordMatchValidator } from '../../directives/password-match.directiv
 import { CreateUserServiceService } from 'src/app/service/create-user-service.service';
 import { LoginPageComponentComponent } from '../login-page-component/login-page-component.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HomePageComponentComponent } from '../home-page-component/home-page-component.component';
 
 @Component({
   selector: 'app-registrer-page-component',
@@ -53,7 +54,7 @@ export class RegistrerPageComponentComponent {
         (response) => {
           console.log('User added successfully:', response);
           this.openSnackBar('Registration successful', 'Close');
-          this.router.navigate([LoginPageComponentComponent])
+          this.router.navigate(['login'])
         },
         (error) => {
           console.error('Error adding user:', error);
