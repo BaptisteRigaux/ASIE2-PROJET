@@ -1,40 +1,34 @@
-.address-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: -10px; /* Compenser l'espacement négatif pour maintenir l'alignement */
-  }
-  
-  .address-card {
-    position: relative;
-    width: calc(30% - 20px);
-    background-color: #f2f2f2;
-    padding: 20px;
-    box-sizing: border-box;
-    margin: 10px; /* Ajouter un espacement entre les cartes */
-    margin-bottom: 10px;
-  }
-  
-  .delete-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-  }
+.address-card {
+  margin: 20px;
+  padding: 15px;
+}
 
-  .delete-icon {
-    display: inline-block;
-    cursor: pointer;
-    transition: transform 0.2s, filter 0.2s;
-  }
-  
-  .delete-icon:hover,
-  .delete-icon:active {
-    filter: brightness(0.8); /* Réduit légèrement la luminosité lors du survol ou du clic */
-    transform: scale(1.1); /* Augmente légèrement la taille lors du survol ou du clic */
-    background-color: rgba(255, 0, 0, 0.1); /* Ajoute un fond rouge léger au survol */
-    border-radius: 50%; /* Arrondit les coins pour créer un effet de bouton */
-  }
+.address-list {
+  display: flex;
+  flex-direction: column;
+}
 
-  .mat-icon {
-    font-size: 40px; /* Taille de l'icône */
-  }
+.address-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #c9c9c9; /* Ligne séparatrice pour chaque adresse */
+  padding: 10px 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-icon {
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.delete-icon:hover,
+.delete-icon:active {
+  filter: brightness(0.8); /* Réduit légèrement la luminosité lors du survol ou du clic */
+  transform: scale(1.1); /* Augmente légèrement la taille lors du survol ou du clic */
+}

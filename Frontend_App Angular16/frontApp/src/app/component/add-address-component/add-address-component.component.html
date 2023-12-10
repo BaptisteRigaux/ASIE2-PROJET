@@ -1,32 +1,37 @@
-<div>
-    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="center-form">
-        <h1 mat-dialog-title>Add Address</h1>
-        <div class="input-field center-input">
+<mat-dialog-content>
+    <mat-card class="dialog-card">
+      <mat-card-title>Add Address</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="center-form">
+          <div class="input-field center-input">
             <mat-form-field class="input-field">
-                <input matInput formControlName="street" placeholder="Street" required >
+              <input matInput formControlName="street" placeholder="Street" required>
             </mat-form-field>
         
             <mat-form-field class="input-field">
-                <input matInput formControlName="postal_code" placeholder="Postal Code" required>
+              <input matInput formControlName="postal_code" placeholder="Postal Code" required>
             </mat-form-field>
         
             <mat-form-field class="input-field">
-                <input matInput formControlName="city" placeholder="City" required>
+              <input matInput formControlName="city" placeholder="City" required>
             </mat-form-field>
         
             <mat-form-field class="input-field">
-                <mat-label>Country</mat-label>
-                <mat-select formControlName="country" required>
+              <mat-label>Country</mat-label>
+              <mat-select formControlName="country" required>
                 <!-- Liste des pays -->
                 <mat-option *ngFor="let country of countries" [value]="country.value">
-                    {{ country.viewValue }}
+                  {{ country.viewValue }}
                 </mat-option>
-                </mat-select>
+              </mat-select>
             </mat-form-field>
-        </div>
-        <div class="modal-footer">
+          </div>
+          <mat-card-actions class="dialog-actions">
             <button mat-button color="primary" type="submit">Add</button>
             <button mat-button (click)="dialogRef.close()">No Thanks</button>
-        </div>
-    </form>
-</div>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+  

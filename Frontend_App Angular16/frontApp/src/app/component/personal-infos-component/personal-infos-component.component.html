@@ -1,71 +1,71 @@
-<app-nav-bar-component></app-nav-bar-component>
+<app-nav-bar-component>
+  <div class="main-content">
+    <div class="card-container">
 
-<div class="container">
-  <div>
-    
-  </div>
-  <h1>Change your informations </h1>
+      <!-- Carte pour changer les informations de l'utilisateur -->
+      <mat-card class="user-info-card">
+        <mat-card-title>Change Your Informations</mat-card-title>
+        <mat-card-content>
+          <form (ngSubmit)="onSubmit()" [formGroup]="userForm" class="form">
+            <div class="input-group">
+              <mat-form-field class="input-field">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="Firstname" placeholder="First Name">
+              </mat-form-field>
+      
+              <mat-form-field class="input-field">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="Lastname" placeholder="Last Name">
+              </mat-form-field>
+      
+              <mat-form-field class="input-field">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Enter your email">
+              </mat-form-field>
+            </div>
+      
+            <div class="input-group">
+              <mat-form-field class="input-field">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+      
+              <mat-form-field class="input-field">
+                <mat-label>Date of Birth</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" placeholder="Enter your date of birth">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+      
+            <div class="input-group">
+              <mat-form-field class="input-field">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter your password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            
+            <button mat-raised-button color="primary" type="submit">Save Changes</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
 
-  <div class="form-container">
-    <form (ngSubmit)="onSubmit()" [formGroup]="userForm" class="form">
-      <div class="input-group">
-        <mat-form-field class="input-field">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="Firstname" placeholder="First Name">
-        </mat-form-field>
-
-        <mat-form-field class="input-field">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="Lastname" placeholder="Last Name">
-        </mat-form-field>
-
-        <mat-form-field class="input-field">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Enter your email">
-        </mat-form-field>
-      </div>
-
-      <div class="input-group">
-        <mat-form-field class="input-field">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option value="male">Male</mat-option>
-            <mat-option value="female">Female</mat-option>
-          </mat-select>
-          <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
-        </mat-form-field>
-
-        <mat-form-field class="input-field">
-          <mat-label>Date of Birth</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" placeholder="Enter your date of birth">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <div class="input-group">
-        <mat-form-field class="input-field">
-          <mat-label>Enter your password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter your password">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      <!-- Carte pour ajouter et gérer les adresses -->
+      <mat-card class="address-card">
+        <mat-card-title>Add and Manage Addresses</mat-card-title>
+        <mat-card-content>
+          <button mat-raised-button color="primary" (click)="openAddAddressModal()">
+            <mat-icon>add</mat-icon> Add Address
           </button>
-        </mat-form-field>
-      </div>
-
-      <button mat-raised-button color="primary" type="submit">Save Changes</button>
-    </form>
+          <app-address-details></app-address-details>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-</div>
-
-<div>
-  <button mat-raised-button color="primary" (click)="openAddAddressModal()">
-    <mat-icon>add</mat-icon> Add Address
-  </button>
-</div>
-
-
-<div class="address-container">
-  <h1>Vos addresse</h1>
-  <app-address-details></app-address-details>
-</div>
+</app-nav-bar-component>

@@ -1,40 +1,41 @@
-<app-nav-bar-component></app-nav-bar-component>
-
-
-<mat-card class="table-card">
-    <mat-card-title>Récapitulatif de votre future commande</mat-card-title>
-    <mat-card-content>
-        <mat-table [dataSource]="articles">
-            <ng-container matColumnDef="name_article">
-            <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
-            <mat-cell *matCellDef="let article"> {{article.name_article}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="catégory">
-                <mat-header-cell *matHeaderCellDef> Catégory </mat-header-cell>
-                <mat-cell *matCellDef="let article"> {{article["catégory"]}} </mat-cell>
-            </ng-container>
-        
-            <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef> Prix </mat-header-cell>
-            <mat-cell *matCellDef="let article"> {{article.price}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-                <mat-cell *matCellDef="let article">
-                <button mat-icon-button (click)="onDeleteArticle(article.article_id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                </mat-cell>
-            </ng-container>
-        
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let article; columns: displayedColumns;"></mat-row>
-        </mat-table>
-
-        <button mat-raised-button color="primary" class="command-button" (click)="commanderArticles()">
-            Commander
-          </button>
-    </mat-card-content>
-</mat-card>
+<app-nav-bar-component>
+    <div class="main-content">
+    <mat-card class="table-card">
+        <mat-card-title>Récapitulatif de votre future commande</mat-card-title>
+        <mat-card-content>
+            <mat-table [dataSource]="articles">
+                <ng-container matColumnDef="name_article">
+                <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+                <mat-cell *matCellDef="let article"> {{article.name_article}} </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="catégory">
+                    <mat-header-cell *matHeaderCellDef> Catégory </mat-header-cell>
+                    <mat-cell *matCellDef="let article"> {{article["catégory"]}} </mat-cell>
+                </ng-container>
+            
+                <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef> Prix </mat-header-cell>
+                <mat-cell *matCellDef="let article"> {{article.price}} </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let article">
+                    <button mat-icon-button (click)="onDeleteArticle(article.article_id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    </mat-cell>
+                </ng-container>
+            
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let article; columns: displayedColumns;"></mat-row>
+            </mat-table>
+    
+            <button mat-raised-button color="primary" class="command-button" (click)="commanderArticles()">
+                Commander
+              </button>
+        </mat-card-content>
+    </mat-card>
+    </div>
+</app-nav-bar-component>

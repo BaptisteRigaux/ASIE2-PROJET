@@ -1,0 +1,23 @@
+.create-seller-card {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.seller-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seller-input {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 15px;
+}
+
+.seller-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}

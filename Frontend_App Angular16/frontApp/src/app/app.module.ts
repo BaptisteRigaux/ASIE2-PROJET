@@ -42,6 +42,8 @@ import { FormsModule } from '@angular/forms'; // Importez FormsModule
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommandpageComponent } from './component/commandpage/commandpage.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,9 @@ import { CommandpageComponent } from './component/commandpage/commandpage.compon
     MatDialogModule,
     FormsModule,
     MatTooltipModule,
-    MatBadgeModule,    
+    MatBadgeModule,  
+    MatSidenavModule,  
+    MatListModule,
    ],
 
   providers: [MessageService],

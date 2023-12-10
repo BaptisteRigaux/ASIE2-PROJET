@@ -12,3 +12,28 @@
     text-align: center;
 }
 
+.full-width-content {
+    width: 100%; /* Assurez que la div prend toute la largeur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .form-card {
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  mat-form-field {
+    width: 100%; /* Assurez-vous que les champs occupent toute la largeur du formulaire */
+    margin-bottom: 10px;
+  }
+  

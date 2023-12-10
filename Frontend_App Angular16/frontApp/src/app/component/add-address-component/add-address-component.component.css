@@ -1,34 +1,29 @@
-/* Centrez tous les éléments du formulaire */
+.dialog-card {
+  max-width: 600px;
+  margin: auto;
+}
+
 .center-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  /* Centrez les champs d'entrée */
-  .mat-form-field {
-    width: 100%;
-    max-width: 300px; /* Ajustez la largeur maximale selon vos besoins */
-    margin-bottom: 15px; /* Ajustez l'espacement entre les champs si nécessaire */
-  }
-  
-  /* Style pour les boutons */
-  .modal-footer {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px; /* Ajoute un espace au-dessus des boutons */
-  }
-  
-  button[type="submit"] {
-    background-color: rgb(177, 177, 254); /* Couleur bleue pour le bouton "Add" */
-    color: white; /* Texte en blanc pour le contraste */
-    padding: 10px 20px; /* Ajoutez du padding aux boutons */
-  }
-  
-  button[type="button"] {
-    background-color: rgb(122, 122, 122); /* Couleur grise pour le bouton "No Thanks" */
-    color: white; /* Texte en blanc pour le contraste */
-    padding: 10px 20px; /* Ajoutez du padding aux boutons */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 15px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+button[type="submit"], button[type="button"] {
+  background-color: rgb(177, 177, 254);
+  color: white;
+  padding: 10px 20px;
+}

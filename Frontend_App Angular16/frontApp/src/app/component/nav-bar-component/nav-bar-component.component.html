@@ -1,71 +1,72 @@
-<mat-toolbar color="primary">
-  <span class="fill-remaining-space">
-    <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <span (mouseleave)="menuTrigger.closeMenu()">
-        <button mat-menu-item (click)="home()">
-          <mat-icon>home</mat-icon>
-          <span>Home</span>
-        </button>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav">
+    <!-- Utilisation d'une liste pour une meilleure organisation -->
+    <mat-nav-list class="padded-nav-list">
 
-        <!-- Bouton pour les commandes -->
-        <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToOrders()">
-          <mat-icon>assignment</mat-icon>
-          <span>Commandes</span>
-        </button>
+      <a mat-list-item (click)="home()">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span class="menu-item-text">Home</span>
+      </a>
 
-        <!-- Lien pour les informations personnelles -->
-        <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToPersonalInfo()">
-          <mat-icon>person</mat-icon>
-          <span>Personal Information</span>
-        </button>
+      <a mat-list-item *ngIf="isLoggedIn() && hasCustomerId()" (click)="redirectToOrders()">
+        <mat-icon matListIcon>assignment</mat-icon>
+        <span class="menu-item-text">Commandes</span>
+      </a>
 
-        <!-- Utilisez *ngIf pour afficher le bouton de connexion (Login) si l'utilisateur n'est pas connecté -->
-        <button mat-menu-item *ngIf="isLoggedIn()" (click)="redirectToAddArticle()">
-          <mat-icon>add_circle_outline</mat-icon>
-          <span>Sell Something</span>
-        </button>
+      <a mat-list-item *ngIf="isLoggedIn()" (click)="redirectToPersonalInfo()">
+        <mat-icon matListIcon>person</mat-icon>
+        <span class="menu-item-text">Personal Information</span>
+      </a>
 
-        <!-- Utilisez *ngIf pour afficher le bouton de connexion (Login) si l'utilisateur n'est pas connecté -->
-        <button mat-menu-item *ngIf="isLoggedIn() && isSellerLogin()" (click)="redirectToManageArticle()">
-          <mat-icon> attach_money</mat-icon>
-          <span>Manage Article</span>
-        </button>
+      <a mat-list-item *ngIf="isLoggedIn()" (click)="redirectToAddArticle()">
+        <mat-icon matListIcon>add_circle_outline</mat-icon>
+        <span class="menu-item-text">Sell Something</span>
+      </a>
 
-        <!-- Utilisez *ngIf pour afficher le bouton de déconnexion (Logout) si l'utilisateur est connecté -->
-        <button mat-menu-item *ngIf="isLoggedIn()" (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-        </button>
-        
-        <!-- Utilisez *ngIf pour afficher le bouton de connexion (Login) si l'utilisateur n'est pas connecté -->
-        <button mat-menu-item *ngIf="!isLoggedIn()" (click)="redirectToLogin()">
-          <mat-icon>login</mat-icon>
-          <span>Login</span>
-        </button>
+      <a mat-list-item *ngIf="isLoggedIn() && isSellerLogin()" (click)="redirectToManageArticle()">
+        <mat-icon matListIcon>attach_money</mat-icon>
+        <span class="menu-item-text">Manage Article</span>
+      </a>
 
-      </span>
-    </mat-menu>
-  </span>
-  <span class="fill-remaining-space">Application Title</span>
-</mat-toolbar>
+      <a mat-list-item *ngIf="isLoggedIn()" (click)="logout()">
+        <mat-icon matListIcon>exit_to_app</mat-icon>
+        <span class="menu-item-text">Logout</span>
+      </a>
 
-<mat-toolbar color="primary">
-  <!-- Vos autres éléments de barre de navigation ici -->
+      <a mat-list-item *ngIf="!isLoggedIn()" (click)="redirectToLogin()">
+        <mat-icon matListIcon>login</mat-icon>
+        <span class="menu-item-text">Login</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-  <span class="fill-remaining-space">
-    <!-- Votre menu et autres éléments -->
-  </span>
-  <button mat-icon-button [matBadge]="getCartItemCount()" [disabled]="isCartEmpty()" matBadgeColor="warn" class="buttonPanier" (click)="redirectToOrderPage()">
-    <mat-icon>shopping_cart</mat-icon>
-  </button>
-  <!-- Icône de panier avec badge -->
-  
-</mat-toolbar>
+  <mat-sidenav-content>
+    <!-- Contenu principal de votre application -->
+    <mat-toolbar color="primary">
+      <span class="toolbar-title">Application Title</span>
+      <span class="fill-remaining-space"></span> <!-- Cela pousse tout ce qui suit vers la droite -->
+      <div class="buttonPanierPX" >
+        <button mat-icon-button 
+              [matBadge]="getCartItemCount()" 
+              [matBadgeOverlap]="true" 
+              matBadgePosition="above after"
+              [disabled]="isCartEmpty()" 
+              matBadgeColor="warn" 
+              class="buttonPanier" 
+              (click)="redirectToOrderPage()">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      </div>
+      
+    </mat-toolbar>
 
-
-<div *ngIf="isCartEmpty()">
-    <p class="empty-cart-message" > Votre panier est vide , Ajoutez des articles avant de commander</p>
-</div>
+    <div *ngIf="isCartEmpty()">
+      <p class="empty-cart-message">Votre panier est vide, Ajoutez des articles avant de commander</p>
+    </div>
+    
+    <!-- Insérez ici le reste de votre contenu de page -->
+    <!-- Slot pour le contenu principal -->
+    <ng-content></ng-content>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>

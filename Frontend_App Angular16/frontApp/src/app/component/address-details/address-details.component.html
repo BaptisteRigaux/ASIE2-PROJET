@@ -1,16 +1,12 @@
-<div class="address-cards">
+<mat-card class="address-card">
+  <mat-card-content class="address-list">
     <ng-container *ngFor="let address of addresses; let i = index;">
-      <div class="address-card">
-        <mat-card class="mat-elevation-z3">
-          <mat-card-content>
-            <p>{{ address.street }}</p>
-            <p>{{ address.city }}, {{ address.postal_code }}</p>
-            <p>{{ address.country }}</p>
-          </mat-card-content>
-          <div class="delete-icon" (click)="onDeleteIconClick(address)">
-            <mat-icon color="warn">delete</mat-icon>
-          </div>
-        </mat-card>
+      <div class="address-entry">
+        <p>{{ address.street }}, {{ address.city }}, {{ address.postal_code }}, {{ address.country }}</p>
+        <div class="actions">
+          <mat-icon class="delete-icon" color="warn" (click)="onDeleteIconClick(address)">delete</mat-icon>
+        </div>
       </div>
     </ng-container>
-  </div>  
+  </mat-card-content>
+</mat-card>

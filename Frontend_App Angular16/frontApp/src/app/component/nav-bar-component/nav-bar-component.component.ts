@@ -75,6 +75,10 @@ export class NavBarComponentComponent implements OnInit {
     return !!this.userData.customers && this.userData.customers.order.length > 0;
   }
 
+  hasCustomerId(): boolean {
+    return !!this.userData?.customers?.customer_id;
+  }
+
   redirectToOrders(): void {
     const customer_id = this.userData.customers?.customer_id;
 
@@ -92,6 +96,7 @@ export class NavBarComponentComponent implements OnInit {
     const userId = this.userData?.user_id;
     const customerId = this.userData?.customers?.customer_id;
     console.log(userId); // Assurez-vous que userId est correct
+    console.log(customerId);
 
     if (userId) {
       let route = `/users/${userId}/personalInfos`;
