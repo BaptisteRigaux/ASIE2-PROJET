@@ -1,6 +1,8 @@
 package td.ecommerce.service;
 
 import td.ecommerce.model.Article;
+import td.ecommerce.model.ArticlePriceHistory;
+
 import java.util.List;
 
 public interface Article_Service {
@@ -13,4 +15,10 @@ public interface Article_Service {
     public Article updateArticle(Article article);
 
     public void deleteArticle(Long id);
+
+    public void deleteArticleById(Long id);
+
+    public List<Article> getArticlesBySeller(Long sellerId);
+
+    public ArticlePriceHistory getLatestPriceHistoryForArticle(Long articleId);
 }

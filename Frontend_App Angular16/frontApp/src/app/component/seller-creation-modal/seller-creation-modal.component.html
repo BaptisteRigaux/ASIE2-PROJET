@@ -1,0 +1,36 @@
+<mat-card class="create-seller-card">
+    <mat-card-title>Création d'un Vendeur</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="sellerForm" (ngSubmit)="createSeller()" class="seller-form">
+            <mat-form-field appearance="fill" class="seller-input">
+                <mat-label>Adresse du vendeur</mat-label>
+                <input matInput formControlName="adress_seller">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="seller-input">
+                <mat-label>Company ID</mat-label>
+                <input matInput formControlName="company_ID">
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill" class="seller-input">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email_seller">
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill" class="seller-input">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="name_seller">
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill" class="seller-input">
+                <mat-label>Téléphone</mat-label>
+                <input matInput formControlName="phone_seller">
+            </mat-form-field>
+
+            <div class="seller-actions">
+                <button mat-raised-button type="button" (click)="onCloseClick()">Annuler</button>
+                <button mat-raised-button color="primary" type="submit">Créer</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

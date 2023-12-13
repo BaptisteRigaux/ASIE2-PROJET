@@ -1,0 +1,60 @@
+<app-nav-bar-component>
+
+    <mat-card class="cardWithShadow">
+        <mat-card-content class="p-24" class="cardWithShadow bg-gray">
+          <mat-card-title>Vos commandes</mat-card-title>
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let order of userOrders" class="expansion-panel-margin">
+              <mat-expansion-panel-header>
+
+                <mat-panel-title>
+                  Numéro de commande: {{ order.number_order }}
+                </mat-panel-title>
+
+                <mat-panel-title>
+                    Status: {{ order.status_order }}
+
+                    <mat-icon *ngIf="order.status_order === 'done'" style="color: green;">check_circle</mat-icon>
+                    <mat-icon *ngIf="order.status_order === 'waiting'" >hourglass_empty</mat-icon>
+                    <mat-icon *ngIf="order.status_order === 'En attente'" style="color: rgb(255, 36, 16);" >hourglass_empty</mat-icon>
+                    
+                </mat-panel-title>
+
+
+                <mat-panel-title>
+                    Date: {{ order.date_order }}
+                </mat-panel-title>
+
+                <mat-panel-title>
+                    Prix: {{ order.total_amount }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="table-responsive m-t-16">
+                <table mat-table [dataSource]="order.articlePriceHistories" class="w-100">
+                  <!-- Columns for order items -->
+                  <!-- Item Name Column -->
+                  <ng-container matColumnDef="itemName">
+                    <th mat-header-cell *matHeaderCellDef>Nom de l'article</th>
+                    <td mat-cell *matCellDef="let articlePriceHistory">{{ articlePriceHistory.article.name_article }}</td>
+                  </ng-container>
+                  <!-- Price Column -->
+                  <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef>Prix</th>
+                    <td mat-cell *matCellDef="let articlePriceHistory">{{ articlePriceHistory.price_article }}</td>
+                  </ng-container>
+          
+                  <!-- Add more columns as needed for order details -->
+          
+                  <!-- Table Row definitions -->
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
+      </mat-card>
+</app-nav-bar-component>
+    
+

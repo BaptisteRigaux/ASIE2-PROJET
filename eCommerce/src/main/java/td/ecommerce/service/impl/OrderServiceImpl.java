@@ -2,6 +2,7 @@ package td.ecommerce.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import td.ecommerce.model.Order;
 import td.ecommerce.repository.Order_Repository;
 import td.ecommerce.service.Order_Service;
@@ -40,5 +41,10 @@ public class OrderServiceImpl implements Order_Service {
     @Override
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Order> getOrdersByCustomerId(Long customerId) {
+        return orderRepository.findByCustomersCustomerId(customerId);
     }
 }

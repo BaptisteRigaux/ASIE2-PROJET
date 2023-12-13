@@ -1,0 +1,30 @@
+.pl-lg-5 {
+    padding-left: 5%;
+  }
+
+  .mat-card-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .emplacementIcon {
+    margin-top: auto; /* Place l'icône en bas de l'élément */
+    margin-left: auto; /* Place l'icône à droite de l'élément */
+  }
+
+  .additionalPadding {
+    padding: 5px !important;
+  }
+
+  .card {
+    background-color: rgb(214, 214, 214);
+    margin-bottom: 20px;
+  }
+
+.mat-card-title,
+.mat-card-subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

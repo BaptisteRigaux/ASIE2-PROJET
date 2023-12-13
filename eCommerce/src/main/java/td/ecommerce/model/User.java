@@ -36,7 +36,10 @@ public class User {
     private LocalDate dateOfBirth;
 
     @Column(name = "gender")
-    private boolean gender; // true for male, false for female
+    private String gender; // string for male or female
+
+    @Column(name = "password")
+    private String password; 
 
     @Column(name = "registration_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -47,17 +50,18 @@ public class User {
 
     @OneToOne(mappedBy = "user") // Définit le lien unidirectionnel
     private Customers customers;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Panier panier;
 
-    public User(String firstname, String lastname, String email, LocalDate dateOfBirth, boolean gender, Date registrationDate) {
+    public User(String firstname, String lastname, String email, LocalDate dateOfBirth, String gender, Date registrationDate, String password) {
         this.Firstname = firstname;
         this.Lastname = lastname;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.registrationDate = registrationDate;
+        this.password = password;
     }
 
     public User(){
@@ -128,11 +132,11 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -142,6 +146,14 @@ public class User {
 
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public String getpassword() {
+        return password;
+    }
+
+    public void setpassword(String password) {
+        this.password = password;
     }
 
 }

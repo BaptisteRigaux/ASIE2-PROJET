@@ -1,0 +1,15 @@
+.bg-gray {
+  background-color: #d8d8d8; /* Choisissez la couleur de gris souhaitée */
+}
+
+.cardWithShadow{
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    width: 100%;
+    padding: 20px;
+}
+
+.expansion-panel-margin {
+    margin-bottom: 20px; /* Ajoutez la marge désirée entre chaque expansion */
+  }

@@ -1,0 +1,72 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav">
+    <!-- Utilisation d'une liste pour une meilleure organisation -->
+    <mat-nav-list class="padded-nav-list">
+
+      <a mat-list-item (click)="home()">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span class="menu-item-text">Home</span>
+      </a>
+
+      <a mat-list-item *ngIf="isLoggedIn() && hasCustomerId()" (click)="redirectToOrders()">
+        <mat-icon matListIcon>assignment</mat-icon>
+        <span class="menu-item-text">Commandes</span>
+      </a>
+
+      <a mat-list-item *ngIf="isLoggedIn()" (click)="redirectToPersonalInfo()">
+        <mat-icon matListIcon>person</mat-icon>
+        <span class="menu-item-text">Personal Information</span>
+      </a>
+
+      <a mat-list-item *ngIf="isLoggedIn()" (click)="redirectToAddArticle()">
+        <mat-icon matListIcon>add_circle_outline</mat-icon>
+        <span class="menu-item-text">Sell Something</span>
+      </a>
+
+      <a mat-list-item *ngIf="isLoggedIn() && isSellerLogin()" (click)="redirectToManageArticle()">
+        <mat-icon matListIcon>attach_money</mat-icon>
+        <span class="menu-item-text">Manage Article</span>
+      </a>
+
+      <a mat-list-item *ngIf="isLoggedIn()" (click)="logout()">
+        <mat-icon matListIcon>exit_to_app</mat-icon>
+        <span class="menu-item-text">Logout</span>
+      </a>
+
+      <a mat-list-item *ngIf="!isLoggedIn()" (click)="redirectToLogin()">
+        <mat-icon matListIcon>login</mat-icon>
+        <span class="menu-item-text">Login</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Contenu principal de votre application -->
+    <mat-toolbar color="primary">
+      <span class="toolbar-title">Application Title</span>
+      <span class="fill-remaining-space"></span> <!-- Cela pousse tout ce qui suit vers la droite -->
+      <div class="buttonPanierPX" >
+        <button mat-icon-button 
+              [matBadge]="getCartItemCount()" 
+              [matBadgeOverlap]="true" 
+              matBadgePosition="above after"
+              [disabled]="isCartEmpty()" 
+              matBadgeColor="warn" 
+              class="buttonPanier" 
+              (click)="redirectToOrderPage()">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      </div>
+      
+    </mat-toolbar>
+
+    <div *ngIf="isCartEmpty()">
+      <p class="empty-cart-message">Votre panier est vide, Ajoutez des articles avant de commander</p>
+    </div>
+    
+    <!-- Insérez ici le reste de votre contenu de page -->
+    <!-- Slot pour le contenu principal -->
+    <ng-content></ng-content>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>

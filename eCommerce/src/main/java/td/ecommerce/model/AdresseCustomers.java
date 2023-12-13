@@ -108,4 +108,12 @@ public class AdresseCustomers {
     public int hashCode() {
         return Objects.hash(adress_id);
     }
+
+    @PreRemove
+    private void preRemove() {
+        if (customers != null) {
+            customers.getAddresses().remove(this); // Détacher l'adresse du client
+            customers = null; // Nullifier la référence du client pour cette adresse
+        }
+    }
 }

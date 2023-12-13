@@ -1,0 +1,31 @@
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card-container {
+  display: flex;
+  gap: 20px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.user-info-card, .address-card {
+  flex: 1;
+  max-width: calc(50% - 10px);
+  min-width: 500px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  width: 100%;
+}
+
+.form {
+  margin-top: 20px;
+}

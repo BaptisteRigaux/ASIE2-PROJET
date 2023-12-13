@@ -1,0 +1,12 @@
+<mat-card class="address-card">
+  <mat-card-content class="address-list">
+    <ng-container *ngFor="let address of addresses; let i = index;">
+      <div class="address-entry">
+        <p>{{ address.street }}, {{ address.city }}, {{ address.postal_code }}, {{ address.country }}</p>
+        <div class="actions">
+          <mat-icon class="delete-icon" color="warn" (click)="onDeleteIconClick(address)">delete</mat-icon>
+        </div>
+      </div>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

@@ -3,7 +3,12 @@ package td.ecommerce;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import td.ecommerce.model.*;
 import td.ecommerce.repository.*;
 
@@ -54,20 +59,21 @@ public class ECommerceApplication {
             //On Clean tous
             adresseCustomersRepository.deleteAll();
             customersRepository.deleteAll();
+            articlePriceHistoryRepostory.deleteAll();
+            articleRepository.deleteAll();
             orderRepository.deleteAll();
             sellerRepository.deleteAll();
             userRepository.deleteAll();
             panierRepository.deleteAll();
-            articleRepository.deleteAll();
-            articlePriceHistoryRepostory.deleteAll();
+            
 
         
             List<Article> articles = new ArrayList<>();
         
             //On créer des users
-            User user1 = new User("John", "Doe", "john@example.com", LocalDate.of(1990, 5, 15), true, new Date());
-            User user2 = new User("Bastien", "Moril", "Bastien@example.com", LocalDate.of(2023, 8, 22), false, new Date() );
-            User user3 = new User("Louis", "safran", "Louis@example.com", LocalDate.of(2023, 9, 30), false, new Date() );
+            User user1 = new User("John", "Doe", "john@example.com", LocalDate.of(1990, 5, 15), "male", new Date(), "pass123");
+            User user2 = new User("Bastien", "Moril", "Bastien@example.com", LocalDate.of(2023, 8, 22), "female", new Date(), "pass123" );
+            User user3 = new User("Louis", "safran", "Louis@example.com", LocalDate.of(2023, 9, 30),"female", new Date(), "pass123" );
             userRepository.save(user1);
             userRepository.save(user2);
             userRepository.save(user3);
@@ -124,10 +130,10 @@ public class ECommerceApplication {
             orderRepository.save(order2);
 
             //Ajouter des articles aux commandes
-            order1.getArticles().add(Article1);
-            order1.getArticles().add(Article3);
-            order2.getArticles().add(Article1);
-            order2.getArticles().add(Article2);
+            order1.getArticlePriceHistories().add(articlePriceHistory1);
+            order1.getArticlePriceHistories().add(articlePriceHistory2);
+            order2.getArticlePriceHistories().add(articlePriceHistory1);
+            order2.getArticlePriceHistories().add(articlePriceHistory3);
 
             //Créer une liste d'article
            // Article article1 = articleRepository.findById(Article1.getArticle_id()).orElseThrow(); // Assurez-vous d'avoir l'ID correct.
@@ -137,23 +143,17 @@ public class ECommerceApplication {
             articles.add(article2);
 
             Panier panier1 = new Panier(user1);
-            List<ArticlePriceHistory> articlePriceHistories =articlePriceHistoryRepostory.findAll();
-            panier1.getArticlePriceHistory().addAll(articlePriceHistories);
+            List<Article> articlesPanier = articleRepository.findAll();
+            panier1.getArticles().addAll(articlesPanier);
             panierRepository.save(panier1);
 
             // Enregistrer les modifications
             orderRepository.save(order1);
             orderRepository.save(order2);
-
-            // Supprimer un ArticlePriceHistory du panier
-            ArticlePriceHistory articlePriceHistoryToRemove = articlePriceHistories.get(1); // Supprimez le premier ArticlePriceHistory par exemple
-            panier1.getArticlePriceHistory().remove(articlePriceHistoryToRemove);
-            panierRepository.save(panier1);
-
         };
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner test(Article_Repository articleRepository){
         return args -> {
 
@@ -172,5 +172,21 @@ public class ECommerceApplication {
 
 
         };
+    }
+
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+
+        CorsFilter corsFilter = new CorsFilter(source);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(corsFilter);
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
     }
 }

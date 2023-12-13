@@ -1,0 +1,24 @@
+<app-nav-bar-component>
+  <div class="card-container">
+    <div *ngFor="let article of articles">
+      <mat-card class="article-card">
+        <mat-card-header>
+          <mat-card-title>{{ article.name_article }}</mat-card-title>
+          <mat-card-subtitle>{{ article['catégory']}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Description: {{ article.description }}</p>
+          <p>Price: {{ article.price }}</p>
+          <p>Stock: {{ article.stock }}</p>
+        </mat-card-content>
+
+
+        <mat-card-actions class="card-action-buttons">
+          <button mat-button class="edit-button" (click)="editArticle(article)">Edit informations</button>
+          <button mat-button class="delete-button" (click)="deleteArticle(article.article_id)">Delete</button>
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
+  </div>  
+</app-nav-bar-component>

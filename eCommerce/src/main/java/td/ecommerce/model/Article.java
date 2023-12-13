@@ -42,11 +42,21 @@ public class Article {
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article",
             fetch = FetchType.EAGER,
             cascade = {CascadeType.ALL},
             orphanRemoval = true)
     private List<ArticlePriceHistory> articlePriceHistories = new ArrayList<>();
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "panier_article",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "panier_id")
+    )
+    private List<Panier> paniers = new ArrayList<>();
 
     public Article(String name_article, String catégory, String description, int stock, int price , Seller seller) {
         this.name_article = name_article;
@@ -124,6 +134,15 @@ public class Article {
         this.price = price;
     }
 
+    public List<Panier> getPaniers() {
+        return paniers;
+    }
+
+    public void setPaniers(List<Panier> paniers) {
+        this.paniers = paniers;
+    }
+
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -147,6 +166,14 @@ public class Article {
     @Override
     protected void finalize() throws Throwable {
        
+    }
+
+    @PreRemove
+    private void preRemove() {
+        if (seller != null) {
+            seller.getArticles().remove(this); // Détacher l'adresse du client
+            seller = null; // Nullifier la référence du client pour cette adresse
+        }
     }
 
 }

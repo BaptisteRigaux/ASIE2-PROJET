@@ -22,7 +22,7 @@ public class Order {
     private String status_order;
 
     @Column(name = "total_amount")
-    private int total_amount;
+    private int totalAmount;
 
     @Column(name = "date_order")
     private Date date_order;
@@ -39,13 +39,13 @@ public class Order {
     @JoinTable(
             name = "orders_articleshistory",
             joinColumns = @JoinColumn(name = "order_order_id"),
-            inverseJoinColumns = @JoinColumn(name = "articles_article_id")
+            inverseJoinColumns = @JoinColumn(name = "articleprice_history_id")
     )
-    private List<Article> articles = new ArrayList<>();
+    private List<ArticlePriceHistory> articlePriceHistories = new ArrayList<>();
 
-    public Order(String status_order, int total_amount, Date date_order, int number_order, Customers customers) {
+    public Order(String status_order, int totalAmount, Date date_order, int number_order, Customers customers) {
         this.status_order = status_order;
-        this.total_amount = total_amount;
+        this.totalAmount = totalAmount;
         this.date_order = date_order;
         this.number_order = number_order;
         this.customers = customers;
@@ -69,11 +69,11 @@ public class Order {
     }
 
     public int getTotal_amount() {
-        return total_amount;
+        return totalAmount;
     }
 
-    public void setTotal_amount(int total_amount) {
-        this.total_amount = total_amount;
+    public void setTotal_amount(int totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public Date getDate_order() {
@@ -100,14 +100,13 @@ public class Order {
         this.customers = customers;
     }
 
-    public List<Article> getArticles() {
-        return articles;
+    public List<ArticlePriceHistory> getArticlePriceHistories() {
+        return articlePriceHistories;
     }
 
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
+    public void setArticlePriceHistories(List<ArticlePriceHistory> articlePriceHistories) {
+        this.articlePriceHistories = articlePriceHistories;
     }
-
 
     public Order() {
         super();

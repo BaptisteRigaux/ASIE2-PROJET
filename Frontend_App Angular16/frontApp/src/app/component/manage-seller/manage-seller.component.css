@@ -1,0 +1,26 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Aligner les cartes au début du conteneur */
+}
+
+.article-card {
+  width: 300px;
+  margin: 10px;
+}
+
+.edit-button {
+  background-color: rgb(108, 108, 255);
+  color: white;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+}
+
+.card-action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+

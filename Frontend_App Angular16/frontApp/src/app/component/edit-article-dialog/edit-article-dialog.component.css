@@ -1,0 +1,15 @@
+.edit-article-card {
+    max-width: 500px; /* Largeur maximale de la carte */
+    margin: 0 auto; /* Centrer la carte */
+  }
+  
+  .input-field {
+    width: 100%; /* Largeur complète des champs */
+    margin-bottom: 16px; /* Espace entre les champs */
+  }
+  
+  .form-actions {
+    text-align: right; /* Aligner les boutons à droite */
+    margin-top: 16px; /* Espace au-dessus des boutons */
+  }
+  

@@ -41,4 +41,5 @@ public class ArticlePriceHistoryImpl implements ArticlePriceHistory_Service {
     public void deleteArticlePriceHistory(Long id) {
         articlePriceHistoryRepostory.deleteById(id);
     }
+    
 }

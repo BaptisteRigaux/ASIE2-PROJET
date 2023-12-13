@@ -1,0 +1,28 @@
+.table-card {
+    margin: auto;
+    margin-top: 30px;
+    width: 60%;
+    padding: 20px;
+  }
+  
+  .mat-table {
+    width: 100%;
+    overflow: auto;
+  }
+  
+  .command-button {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Pour aligner le bouton à gauche */
+  .mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-content {
+    margin-left: 15%; /* Ajustez selon la largeur de votre menu latéral */
+  }
+  

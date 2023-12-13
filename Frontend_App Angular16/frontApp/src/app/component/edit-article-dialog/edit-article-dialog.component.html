@@ -1,0 +1,38 @@
+<mat-dialog-content>
+    <mat-card class="edit-article-card">
+      <mat-card-content>
+            <form>
+                <!-- Champs pour l'édition de l'article -->
+                <mat-form-field class="input-field">
+                    <mat-label>Nom de l'article</mat-label>
+                    <input matInput placeholder="Nom de l'article" [(ngModel)]="selectedArticle.name_article" [ngModelOptions]="{ standalone: true }">
+                </mat-form-field>
+            
+                <mat-form-field class="input-field">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Description" [(ngModel)]="selectedArticle.description" [ngModelOptions]="{ standalone: true }"></textarea>
+                </mat-form-field>
+            
+                <mat-form-field class="input-field">
+                    <mat-label>Prix</mat-label>
+                    <input matInput type="number" [(ngModel)]="selectedArticle.price" [ngModelOptions]="{ standalone: true }">
+                </mat-form-field>
+            
+                <mat-form-field class="input-field">
+                    <mat-label>Stock</mat-label>
+                    <input matInput type="number" [(ngModel)]="selectedArticle.stock" [ngModelOptions]="{ standalone: true }">
+                </mat-form-field>
+
+                <mat-form-field class="input-field">
+                    <mat-label>Catégorie</mat-label>
+                    <input matInput type="text" [(ngModel)]="selectedArticle['catégory']" [ngModelOptions]="{ standalone: true }">
+                </mat-form-field>
+
+                <div style="text-align: right;">
+                    <button mat-button color="primary" (click)="saveChanges()">Enregistrer</button>
+                    <button mat-button (click)="cancel()">Annuler</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>

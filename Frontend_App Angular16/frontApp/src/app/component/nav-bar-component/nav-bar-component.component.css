@@ -1,0 +1,54 @@
+.buttonPanier{
+background-color: rgb(173, 51, 51);
+}
+
+.sidenav-container {
+height: 100vh; /* Hauteur de la fenêtre de visualisation complète */
+display: flex; /* Utilisez flexbox pour la disposition */
+flex-direction: row; /* Alignement horizontal des éléments */
+}
+
+.sidenav {
+width: 15%; /* Largeur fixe pour la barre latérale */
+border-right: 1px solid black; /* Ajouter un bord noir d'un pixel */
+background-color: #d2cfcf; /* Couleur de fond gris clair */
+
+
+}
+
+.mat-sidenav-content {
+flex-grow: 1; /* Le contenu principal prend l'espace restant */
+}
+
+.menu-item-text {
+margin-left: 10px; /* Ajustez cet espace selon vos besoins */
+}
+
+mat-list-item {
+display: flex;
+align-items: center;
+}
+
+
+.fill-remaining-space {
+flex: 1 1 auto; /* Cela permet de pousser tout ce qui est après vers la droite */
+}
+
+.buttonPanier {
+margin-right: 10px; /* Ajustez selon vos besoins pour aligner le bouton à droite */
+}
+
+
+.toolbar-title {
+    padding-top: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .buttonPanierPX {
+    padding-top: 15px;
+    padding-bottom: 10px;
+  }
+
+  .padded-nav-list {
+    margin-top: 25%;
+  }
