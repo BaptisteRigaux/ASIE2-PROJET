@@ -4,12 +4,14 @@ Ce projet est une application de commerce électronique développée en utilisan
 
 ## Prérequis
 
-Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre système :
 
-- Java Development Kit (JDK)
-- Node.js avec npm
-- Angular CLI
-- MySQL Server
+- **Java Development Kit (JDK)** : Assurez-vous d'avoir Java 8 ou une version ultérieure installée.
+- **Node.js avec npm** : Installez Node.js à partir du [site officiel](https://nodejs.org/).
+- **Angular CLI** : Vous pouvez installer Angular CLI en utilisant la commande `npm install -g @angular/cli`.
+- **Serveur MySQL** : Assurez-vous d'avoir un serveur MySQL en cours d'exécution. Vous pouvez l'installer localement ou utiliser un service d'hébergement de bases de données.
+
+## Installation
 
 ## Installation
 
@@ -47,9 +49,3 @@ spring.datasource.password=votre_mot_de_passe
 
 ## Contributeurs
 
-- Votre nom <votre@email.com>
-- Autre contributeur <autre@email.com>
-
-## Licence
-
-Ce projet est sous licence [MIT](LICENSE).
