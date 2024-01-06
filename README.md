@@ -24,3 +24,32 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
 spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
 spring.datasource.username=votre_utilisateur
 spring.datasource.password=votre_mot_de_passe
+
+5. Exécutez l'application backend en utilisant Maven :   mvn spring-boot:run
+
+6. Accédez au répertoire frontend :  cd ../frontend
+
+7. Installez les dépendances Angular :  npm install
+
+8. Lancez l'application frontend :
+
+
+9. Ouvrez votre navigateur et accédez à [http://localhost:4200](http://localhost:4200) pour voir l'application en action.
+
+## Fonctionnalités
+
+- [x] Inscription et connexion des utilisateurs
+- [x] Gestion des articles et des vendeurs
+- [x] Ajout d'articles au panier
+- [x] Commande d'articles
+- [x] Gestion des adresses de livraison
+- [x] ...
+
+## Contributeurs
+
+- Votre nom <votre@email.com>
+- Autre contributeur <autre@email.com>
+
+## Licence
+
+Ce projet est sous licence [MIT](LICENSE).
