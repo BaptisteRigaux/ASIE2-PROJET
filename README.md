@@ -13,8 +13,6 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 ## Installation
 
-## Installation
-
 1. Clonez ce dépôt GitHub sur votre machine locale : git clone https://github.com/votre-utilisateur/projet-ecommerce.git
 2. Accédez au répertoire backend : cd projet-ecommerce/backend
 
